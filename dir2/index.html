@@ -1,0 +1,1234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rohanth — 30-Day Placement War Plan</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --red: #E24B4A;
+    --red-dark: #A32D2D;
+    --red-light: #FCEBEB;
+    --amber: #EF9F27;
+    --amber-light: #FAEEDA;
+    --green: #639922;
+    --green-light: #EAF3DE;
+    --blue: #378ADD;
+    --blue-light: #E6F1FB;
+    --gray-light: #F1EFE8;
+    --gray-mid: #888780;
+    --gray-dark: #2C2C2A;
+    --border: #D3D1C7;
+    --bg: #0a0a09;
+    --surface: #141413;
+    --surface2: #1e1e1c;
+    --surface3: #262624;
+    --text: #f0ede6;
+    --text-muted: #888780;
+    --text-dim: #4a4a47;
+    --accent: #E24B4A;
+    --accent2: #EF9F27;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Syne', sans-serif;
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  /* HEADER */
+  .war-header {
+    background: var(--surface);
+    border-bottom: 1px solid #2a2a27;
+    padding: 3rem 2rem 2rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .war-header::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--accent), var(--accent2), var(--accent));
+  }
+
+  .war-header h1 {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    line-height: 1;
+    margin-bottom: 0.5rem;
+  }
+
+  .war-header h1 span.name { color: var(--accent2); }
+  .war-header h1 span.x { color: var(--accent); }
+
+  .war-subtitle {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 2rem;
+  }
+
+  .mission-brief {
+    background: var(--surface2);
+    border: 1px solid #2a2a27;
+    border-left: 3px solid var(--accent);
+    border-radius: 8px;
+    padding: 1rem 1.5rem;
+    max-width: 700px;
+    margin: 0 auto;
+    text-align: left;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    line-height: 1.7;
+  }
+
+  .mission-brief strong { color: var(--accent); }
+
+  /* STATS BAR */
+  .stats-bar {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: #2a2a27;
+    border-bottom: 1px solid #2a2a27;
+  }
+
+  .stat-item {
+    background: var(--surface);
+    padding: 1rem;
+    text-align: center;
+  }
+
+  .stat-num {
+    font-size: 2rem;
+    font-weight: 800;
+    line-height: 1;
+    display: block;
+  }
+
+  .stat-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-top: 4px;
+  }
+
+  /* LEGEND */
+  .legend {
+    padding: 1.5rem 2rem;
+    background: var(--surface);
+    border-bottom: 1px solid #2a2a27;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    align-items: center;
+  }
+
+  .legend-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    margin-right: 0.5rem;
+  }
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.78rem;
+    color: var(--text-muted);
+  }
+
+  .legend-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+  }
+
+  /* MAIN GRID */
+  .plan-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 2rem;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  /* PHASE */
+  .phase-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.5rem 0 1rem;
+    border-bottom: 1px solid #2a2a27;
+    margin-bottom: 1.5rem;
+    margin-top: 2rem;
+  }
+
+  .phase-header:first-child { margin-top: 0; }
+
+  .phase-badge {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+
+  .phase-title {
+    font-size: 1.3rem;
+    font-weight: 700;
+  }
+
+  .phase-days {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    margin-left: auto;
+  }
+
+  /* DAYS GRID */
+  .days-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  /* DAY CARD */
+  .day-card {
+    background: var(--surface);
+    border: 1px solid #2a2a27;
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+    transition: border-color 0.2s;
+  }
+
+  .day-card:hover { border-color: #3a3a37; }
+
+  .day-card.openmynz {
+    border-color: #EF9F27;
+    box-shadow: 0 0 0 1px #EF9F2733;
+  }
+
+  .day-card.interview-day {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 1px #E24B4A33;
+  }
+
+  .day-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid #2a2a27;
+  }
+
+  .day-num {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    letter-spacing: 0.08em;
+  }
+
+  .day-badges {
+    display: flex;
+    gap: 4px;
+  }
+
+  .badge {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.58rem;
+    padding: 2px 7px;
+    border-radius: 3px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .badge-c { background: #E24B4A22; color: var(--accent); border: 1px solid #E24B4A44; }
+  .badge-dsa { background: #378ADD22; color: #69aaee; border: 1px solid #378ADD44; }
+  .badge-oop { background: #63992222; color: #8dc93a; border: 1px solid #63992244; }
+  .badge-interview { background: #EF9F2722; color: var(--accent2); border: 1px solid #EF9F2744; }
+  .badge-review { background: #53535022; color: var(--text-muted); border: 1px solid #53535044; }
+  .badge-dp { background: #7F77DD22; color: #aaa5ee; border: 1px solid #7F77DD44; }
+  .badge-graph { background: #1D9E7522; color: #3dcaa5; border: 1px solid #1D9E7544; }
+  .badge-bt { background: #D4537E22; color: #e890b0; border: 1px solid #D4537E44; }
+  .badge-openmynz { background: #EF9F2722; color: var(--accent2); border: 1px solid #EF9F2766; }
+
+  .day-card-body {
+    padding: 0.75rem 1rem;
+  }
+
+  .day-focus {
+    font-size: 0.95rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    line-height: 1.3;
+    color: var(--text);
+  }
+
+  .sessions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .session {
+    display: flex;
+    gap: 0.5rem;
+    align-items: flex-start;
+  }
+
+  .session-tag {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.6rem;
+    font-weight: 700;
+    padding: 2px 6px;
+    border-radius: 3px;
+    flex-shrink: 0;
+    margin-top: 1px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  .s1 { background: var(--accent); color: #fff; }
+  .s2 { background: var(--blue); color: #fff; }
+  .s3 { background: var(--green); color: #fff; }
+  .som { background: var(--accent2); color: #000; }
+
+  .session-text {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+  }
+
+  .session-text strong {
+    color: var(--text);
+    font-weight: 600;
+  }
+
+  .quota-bar {
+    margin-top: 0.75rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid #2a2a27;
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  .quota-item {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.62rem;
+    color: var(--text-dim);
+    background: var(--surface2);
+    padding: 2px 8px;
+    border-radius: 3px;
+  }
+
+  .quota-item span { color: var(--accent2); font-weight: 700; }
+
+  /* SPECIAL DAY LABELS */
+  .special-banner {
+    padding: 0.5rem 1rem;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .banner-openmynz {
+    background: #EF9F2715;
+    color: var(--accent2);
+    border-bottom: 1px solid #EF9F2733;
+  }
+
+  .banner-interview {
+    background: #E24B4A15;
+    color: var(--accent);
+    border-bottom: 1px solid #E24B4A33;
+  }
+
+  /* OPENMYNZ REQUIREMENTS BOX */
+  .requirements-box {
+    background: var(--surface);
+    border: 1px solid #EF9F2744;
+    border-radius: 10px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .req-title {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent2);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .req-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 0.75rem;
+  }
+
+  .req-item {
+    background: var(--surface2);
+    border: 1px solid #2a2a27;
+    border-radius: 6px;
+    padding: 0.6rem 0.8rem;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    line-height: 1.4;
+  }
+
+  .req-item strong { color: var(--text); font-weight: 600; }
+
+  /* RULES BOX */
+  .rules-box {
+    background: var(--surface);
+    border: 1px solid #E24B4A44;
+    border-radius: 10px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .rules-box h3 {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1rem;
+  }
+
+  .rules-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 0.5rem;
+    list-style: none;
+  }
+
+  .rules-list li {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    padding: 0.4rem 0;
+    border-bottom: 1px solid #1e1e1c;
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .rules-list li::before {
+    content: '//';
+    font-family: 'Space Mono', monospace;
+    color: var(--accent);
+    font-size: 0.7rem;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  /* FOOTER */
+  .war-footer {
+    background: var(--surface);
+    border-top: 1px solid #2a2a27;
+    padding: 2rem;
+    text-align: center;
+  }
+
+  .war-footer p {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    font-style: italic;
+  }
+
+  .war-footer strong { color: var(--accent2); }
+
+  /* RESPONSIVE */
+  @media (max-width: 600px) {
+    .stats-bar { grid-template-columns: repeat(2, 1fr); }
+    .plan-container { padding: 1rem; }
+    .war-header { padding: 2rem 1rem 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="war-header">
+  <div class="war-subtitle">30-Day Placement War Plan · April 21 – May 20</div>
+  <h1><span class="name">ROHANTH</span> <span class="x">×</span> PLACEMENT</h1>
+  <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.5rem;">You said you'd give your soul. This plan will collect it. No excuses. No off days.</p>
+  <div class="mission-brief">
+    <strong>MISSION:</strong> Crack OpenMyNZ on Day 10 (April 30). Build deep C/C++, OOP, DSA, DP, Backtracking, Graphs & Trees mastery. Emerge on Day 30 as an unstoppable placement machine.<br><br>
+    Based on Boobathi Anna's intel: focus on <strong>resume-based fundamentals, C pointers, OOP classes, logical functions</strong> — no Leetcode hard mode, but strong basics that you can code from scratch.
+  </div>
+</div>
+
+<div class="stats-bar">
+  <div class="stat-item">
+    <span class="stat-num" style="color: var(--accent);">30</span>
+    <div class="stat-label">Total Days</div>
+  </div>
+  <div class="stat-item">
+    <span class="stat-num" style="color: var(--accent2);">3</span>
+    <div class="stat-label">Sessions / Day</div>
+  </div>
+  <div class="stat-item">
+    <span class="stat-num" style="color: #69aaee;">120+</span>
+    <div class="stat-label">Problems Solved</div>
+  </div>
+  <div class="stat-item">
+    <span class="stat-num" style="color: #3dcaa5;">1</span>
+    <div class="stat-label">OpenMyNZ Target</div>
+  </div>
+</div>
+
+<div class="legend">
+  <span class="legend-label">Sessions:</span>
+  <div class="legend-item"><span class="session-tag s1" style="margin-top:0">S1</span> Morning (7–10am)</div>
+  <div class="legend-item"><span class="session-tag som" style="margin-top:0">OM</span> OpenMyNZ prep (Days 1–10 only)</div>
+  <div class="legend-item"><span class="session-tag s2" style="margin-top:0">S2</span> Afternoon (2–5pm)</div>
+  <div class="legend-item"><span class="session-tag s3" style="margin-top:0">S3</span> Night (8–10pm)</div>
+</div>
+
+<!-- ==================== PLAN CONTAINER ==================== -->
+<div class="plan-container">
+
+  <!-- OPENMYNZ REQUIREMENTS -->
+  <div class="requirements-box">
+    <div class="req-title">⚡ OpenMyNZ Interview — Day 10 (April 30) — Critical Target</div>
+    <div class="req-grid">
+      <div class="req-item"><strong>Company:</strong> OpenMyNZ — expect role-based technical round</div>
+      <div class="req-item"><strong>C/C++ Basics:</strong> Pointers, memory, arrays — expect questions from resume</div>
+      <div class="req-item"><strong>OOP:</strong> Classes, member functions, real use-case scenarios</div>
+      <div class="req-item"><strong>Logic Coding:</strong> Substring functions, pattern logic, basic string ops</div>
+      <div class="req-item"><strong>No Leetcode Hard:</strong> But must write clean correct code on the spot</div>
+      <div class="req-item"><strong>Resume Defense:</strong> Every line on your resume must be fully explainable</div>
+    </div>
+  </div>
+
+  <!-- RULES -->
+  <div class="rules-box">
+    <h3>⚔ War Rules — Non-Negotiable</h3>
+    <ul class="rules-list">
+      <li>Every problem you solve, write it by hand first, then type</li>
+      <li>No solution peeking until you've tried 30+ mins minimum</li>
+      <li>Revise every concept after 24 hours (spaced repetition)</li>
+      <li>Mock-interview yourself aloud in front of a mirror daily</li>
+      <li>Sleep 7 hours — sleep deprivation kills recall, non-negotiable</li>
+      <li>Daily: 2 problems coded, 1 concept revised, 1 thing explained aloud</li>
+      <li>Weak areas get double time — no hiding from them</li>
+      <li>Write comments in code explaining your own logic each time</li>
+    </ul>
+  </div>
+
+  <!-- ====== PHASE 1 ====== -->
+  <div class="phase-header">
+    <div class="phase-badge" style="background:#E24B4A22;color:var(--accent);border:1px solid #E24B4A44;">Phase 1</div>
+    <div class="phase-title">C Pointers, Advanced C + OpenMyNZ Blitz</div>
+    <div class="phase-days">Days 1–10</div>
+  </div>
+
+  <div class="days-grid">
+
+    <!-- DAY 1 -->
+    <div class="day-card">
+      <div class="day-card-header">
+        <span class="day-num">Day 01</span>
+        <div class="day-badges"><span class="badge badge-c">C</span><span class="badge badge-openmynz">OpenMyNZ</span></div>
+      </div>
+      <div class="day-card-body">
+        <div class="day-focus">C Pointers Foundations + Resume Audit</div>
+        <div class="sessions">
+          <div class="session"><span class="session-tag s1">S1</span><span class="session-text"><strong>C Pointers Basics:</strong> Declare, dereference, pointer arithmetic. `int *p`, `*p = 10`, `p++`. Write 5 programs by hand: swap using pointers, find array max via pointer traversal.</span></div>
+          <div class="session"><span class="session-tag som">OM</span><span class="session-text"><strong>OpenMyNZ Prep:</strong> Print & annotate your resume. Mark every technology listed. For each one, write 3 questions an interviewer might ask. This becomes your study list.</span></div>
+          <div class="session"><span class="session-tag s2">S2</span><span class="session-text"><strong>Pointer to Pointer, void pointer:</strong> `int **pp`, `void *vp`. Write programs: dynamic array using malloc, free memory properly. Understand pointer sizes.</span></div>
+          <div class="session"><span class="session-tag s3">S3</span><span class="session-text"><strong>Revision + Mock:</strong> Explain pointers aloud as if interviewing. Code `reverse_array` using pointer arithmetic only (no index). Time: 20 min cold.</span></div>
+        </div>
+        <div class="quota-bar">
+          <div class="quota-item">Problems: <span>5</span></div>
+          <div class="quota-item">Concepts: <span>void ptr, ptr arithmetic</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DAY 2 -->
+    <div class="day-card">
+      <div class="day-card-header">
+        <span class="day-num">Day 02</span>
+        <div class="day-badges"><span class="badge badge-c">C</span><span class="badge badge-openmynz">OpenMyNZ</span></div>
+      </div>
+      <div class="day-card-body">
+        <div class="day-focus">Function Pointers, Pointers & Arrays</div>
+        <div class="sessions">
+          <div class="session"><span class="session-tag s1">S1</span><span class="session-text"><strong>Function Pointers:</strong> Declare `int (*fp)(int,int)`, assign, call. Build a calculator using function pointer array — interviewer gold. Understand callbacks concept.</span></div>
+          <div class="session"><span class="session-tag som">OM</span><span class="session-text"><strong>OpenMyNZ Prep:</strong> Write a full "tell me about yourself" (2 min, practice 5 times). Prepare 3 project explanations: problem → what you built → tech used → challenges.</span></div>
+          <div class="session"><span class="session-tag s2">S2</span><span class="session-text"><strong>Pointer & Arrays:</strong> 2D array pointer traversal, `*(arr+i)` vs `arr[i]`. Code: matrix multiplication using pointer indexing. String as `char*` — `strlen`, `strcpy` from scratch.</span></div>
+          <div class="session"><span class="session-tag s3">S3</span><span class="session-text"><strong>Revision:</strong> Write `my_strlen`, `my_strcpy`, `my_strcat` from scratch using only pointer operations. No string.h allowed.</span></div>
+        </div>
+        <div class="quota-bar">
+          <div class="quota-item">Problems: <span>6</span></div>
+          <div class="quota-item">Build: <span>Calculator via func ptrs</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DAY 3 -->
+    <div class="day-card">
+      <div class="day-card-header">
+        <span class="day-num">Day 03</span>
+        <div class="day-badges"><span class="badge badge-c">C</span><span class="badge badge-openmynz">OpenMyNZ</span></div>
+      </div>
+      <div class="day-card-body">
+        <div class="day-focus">Dynamic Memory, Structs & Advanced Pointers</div>
+        <div class="sessions">
+          <div class="session"><span class="session-tag s1">S1</span><span class="session-text"><strong>Dynamic Memory:</strong> malloc, calloc, realloc, free. Memory leaks — what they are, how to avoid. Build a dynamic integer stack using malloc. Resize on overflow.</span></div>
+          <div class="session"><span class="session-tag som">OM</span><span class="session-text"><strong>OpenMyNZ Prep:</strong> Deep-dive on your top project. Draw architecture diagram. Be ready to explain every design choice. Prepare for "why did you use X instead of Y" questions.</span></div>
+          <div class="session"><span class="session-tag s2">S2</span><span class="session-text"><strong>Structs + Pointers:</strong> `struct Student *s = malloc(...)`. Pointer to struct, `->` operator. Linked list node with struct pointer. Write `insert_head`, `print_list`, `free_list`.</span></div>
+          <div class="session"><span class="session-tag s3">S3</span><span class="session-text"><strong>Coding drill:</strong> Build a singly linked list with insert, delete, search, reverse — all using struct pointers. This is bread-and-butter interview material.</span></div>
+        </div>
+        <div class="quota-bar">
+          <div class="quota-item">Build: <span>Linked List in C</span></div>
+          <div class="quota-item">Concepts: <span>malloc, calloc, realloc</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DAY 4 -->
+    <div class="day-card">
+      <div class="day-card-header">
+        <span class="day-num">Day 04</span>
+        <div class="day-badges"><span class="badge badge-c">C</span><span class="badge badge-openmynz">OpenMyNZ</span></div>
+      </div>
+      <div class="day-card-body">
+        <div class="day-focus">Logical Functions in C — Interview Ready</div>
+        <div class="sessions">
+          <div class="session"><span class="session-tag s1">S1</span><span class="session-text"><strong>String Logic Functions from scratch:</strong> `substring(str, start, len)`, `is_palindrome(str)`, `count_occurrences(str, ch)`, `remove_duplicates(str)`. Write all without using library functions.</span></div>
+          <div class="session"><span class="session-tag som">OM</span><span class="session-text"><strong>OpenMyNZ Prep:</strong> Mock technical interview — ask a friend or do it solo. Present your code solutions aloud. Practice "I would approach this by..." framework. Timed: 10 min per problem.</span></div>
+          <div class="session"><span class="session-tag s2">S2</span><span class="session-text"><strong>Number/Array logic:</strong> `fibonacci(n)` iterative + recursive, `is_prime(n)`, `gcd(a,b)`, `binary_search(arr, n, key)`, `bubble_sort(arr, n)`. Write all from memory.</span></div>
+          <div class="session"><span class="session-tag s3">S3</span><span class="session-text"><strong>Boobathi Anna test:</strong> Imagine the interview is tomorrow. Write all functions from today without notes. Any you fail = revise immediately. Repeat until clean.</span></div>
+        </div>
+        <div class="quota-bar">
+          <div class="quota-item">Functions coded: <span>10+</span></div>
+          <div class="quota-item">Zero library calls allowed</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DAY 5 -->
+    <div class="day-card">
+      <div class="day-card-header">
+        <span class="day-num">Day 05</span>
+        <div class="day-badges"><span class="badge badge-oop">OOP</span><span class="badge badge-openmynz">OpenMyNZ</span></div>
+      </div>
+      <div class="day-card-body">
+        <div class="day-focus">C++ OOP — Classes, Constructors, Encapsulation</div>
+        <div class="sessions">
+          <div class="session"><span class="session-tag s1">S1</span><span class="session-text"><strong>C++ Class basics:</strong> Class vs Struct, access specifiers. Write classes: `BankAccount` (balance, deposit, withdraw, getBalance), `Student` (name, marks, grade). Use constructors, destructors.</span></div>
+          <div class="session"><span class="session-tag som">OM</span><span class="session-text"><strong>OpenMyNZ Prep:</strong> Research the company — product, tech stack, what role you applied for. Prepare 3 questions to ask the interviewer. Write them down. Prepare answers to "why OpenMyNZ?"</span></div>
+          <div class="session"><span class="session-tag s2">S2</span><span class="session-text"><strong>Constructor types:</strong> Default, parameterized, copy constructor. Assignment operator. `this` pointer. Write a `Matrix` class with operator overloading for `+` and `*`.</span></div>
+          <div class="session"><span class="session-tag s3">S3</span><span class="session-text"><strong>Coding test:</strong> Design a `Library` class — books array, add book, remove book, search by title, display all. Use member functions. Explain your design choices aloud.</span></div>
+        </div>
+        <div class="quota-bar">
+          <div class="quota-item">Classes built: <span>4</span></div>
+          <div class="quota-item">Concepts: <span>constructors, this ptr</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DAY 6 -->
+    <div class="day-card">
+      <div class="day-card-header">
+        <span class="day-num">Day 06</span>
+        <div class="day-badges"><span class="badge badge-oop">OOP</span><span class="badge badge-openmynz">OpenMyNZ</span></div>
+      </div>
+      <div class="day-card-body">
+        <div class="day-focus">Inheritance, Polymorphism, Virtual Functions</div>
+        <div class="sessions">
+          <div class="session"><span class="session-tag s1">S1</span><span class="session-text"><strong>Inheritance:</strong> Single, multilevel, multiple inheritance. Build: `Animal → Dog → GoldenRetriever` hierarchy. Override methods. Understand `protected` access. Explain is-a relationship.</span></div>
+          <div class="session"><span class="session-tag som">OM</span><span class="session-text"><strong>OpenMyNZ Prep:</strong> Full resume walkthrough — read every line aloud, explain as if in interview. Flag anything you can't fully explain and study it tonight. No gaps allowed.</span></div>
+          <div class="session"><span class="session-tag s2">S2</span><span class="session-text"><strong>Polymorphism + Virtual:</strong> Function overriding, virtual keyword, pure virtual (`= 0`). Abstract class. `Shape → Circle, Rectangle` with area() pure virtual. Dynamic dispatch explained.</span></div>
+          <div class="session"><span class="session-tag s3">S3</span><span class="session-text"><strong>Design challenge:</strong> Build an Employee management system — `Employee` base class, `Manager` and `Developer` derived, virtual `calculateSalary()`. Polymorphic array of employees.</span></div>
+        </div>
+        <div class="quota-bar">
+          <div class="quota-item">Systems built: <span>2</span></div>
+          <div class="quota-item">Concepts: <span>vtable, abstract class</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DAY 7 -->
+    <div class="day-card">
+      <div class="day-card-header">
+        <span class="day-num">Day 07</span>
+        <div class="day-badges"><span class="badge badge-dsa">DSA</span><span class="badge badge-openmynz">OpenMyNZ</span></div>
+      </div>
+      <div class="day-card-body">
+        <div class="day-focus">Arrays, Strings & Searching — Timed Drills</div>
+        <div class="sessions">
+          <div class="session"><span class="session-tag s1">S1</span><span class="session-text"><strong>Array problems (timed 20 min each):</strong> Two-sum (brute + hash), max subarray (Kadane's), rotate array k times, find majority element, merge two sorted arrays in-place.</span></div>
+          <div class="session"><span class="session-tag som">OM</span><span class="session-text"><strong>OpenMyNZ Final Prep:</strong> Write your "greatest technical challenge" story using STAR method (Situation, Task, Action, Result). Also prepare: "biggest mistake" and "team conflict" answers.</span></div>
+          <div class="session"><span class="session-tag s2">S2</span><span class="session-text"><strong>String problems:</strong> Anagram check, first non-repeating character, longest common prefix, valid parentheses (stack-based), reverse words in sentence. Code all in C++.</span></div>
+          <div class="session"><span class="session-tag s3">S3</span><span class="session-text"><strong>Speed round:</strong> Set timer 15 min per problem. Solve 4 array/string problems. Focus: can you write clean bug-free code under pressure? This simulates OpenMyNZ coding round.</span></div>
+        </div>
+        <div class="quota-bar">
+          <div class="quota-item">Problems: <span>10</span></div>
+          <div class="quota-item">All timed under 20 min</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DAY 8 -->
+    <div class="day-card">
+      <div class="day-card-header">
+        <span class="day-num">Day 08</span>
+        <div class="day-badges"><span class="badge badge-dsa">DSA</span><span class="badge badge-openmynz">OpenMyNZ</span></div>
+      </div>
+      <div class="day-card-body">
+        <div class="day-focus">Linked Lists, Stacks, Queues — Full Implementations</div>
+        <div class="sessions">
+          <div class="session"><span class="session-tag s1">S1</span><span class="session-text"><strong>Linked List problems:</strong> Reverse LL (iterative + recursive), detect cycle (Floyd's), find middle (slow/fast pointer), merge two sorted LLs, remove nth from end.</span></div>
+          <div class="session"><span class="session-tag som">OM</span><span class="session-text"><strong>OpenMyNZ Prep:</strong> Full mock interview with yourself. 45 min timed. Intro → technical questions → coding → your questions to them. Record yourself on phone. Watch back and critique.</span></div>
+          <div class="session"><span class="session-tag s2">S2</span><span class="session-text"><strong>Stack & Queue:</strong> Implement stack using array and LL. Queue using array and LL. Stack using two queues. Min stack (O(1) getMin). Implement `isBalanced()` for parentheses.</span></div>
+          <div class="session"><span class="session-tag s3">S3</span><span class="session-text"><strong>Explain aloud:</strong> Pick any 3 data structures from today. Explain when to use each, time complexity of operations, a real-world use case. Practice without notes.</span></div>
+        </div>
+        <div class="quota-bar">
+          <div class="quota-item">Implementations: <span>8</span></div>
+          <div class="quota-item">Explain complexity aloud</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DAY 9 -->
+    <div class="day-card">
+      <div class="day-card-header">
+        <span class="day-num">Day 09</span>
+        <div class="day-badges"><span class="badge badge-review">REVIEW</span><span class="badge badge-openmynz">OpenMyNZ</span></div>
+      </div>
+      <div class="day-card-body">
+        <div class="day-focus">Day Before OpenMyNZ — Full Consolidation</div>
+        <div class="sessions">
+          <div class="session"><span class="session-tag s1">S1</span><span class="session-text"><strong>LIGHT review only:</strong> Re-read all your handwritten notes from Days 1–8. Don't learn new things. Mentally walk through your top 5 code implementations. Strengthen what you know.</span></div>
+          <div class="session"><span class="session-tag som">OM</span><span class="session-text"><strong>Final OpenMyNZ prep:</strong> Print resume, confirm interview time/link, charge devices. Prepare environment. Write down your 3 most impressive talking points. Sleep before 10:30pm tonight — mandatory.</span></div>
+          <div class="session"><span class="session-tag s2">S2</span><span class="session-text"><strong>Rapid-fire quiz yourself:</strong> What is a void pointer? Explain virtual function. Code: reverse a linked list. Explain Kadane's algorithm. Write a class with inheritance. Time each: 5 min max.</span></div>
+          <div class="session"><span class="session-tag s3">S3</span><span class="session-text"><strong>Rest & reset:</strong> Light walk or breathing exercises. No new studying. You've put in the work. Confidence is a skill — practice it. Sleep is your weapon tonight.</span></div>
+        </div>
+        <div class="quota-bar">
+          <div class="quota-item">Mode: <span>Consolidation only</span></div>
+          <div class="quota-item">Sleep by: <span>10:30pm sharp</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DAY 10 — OPENMYNZ -->
+    <div class="day-card openmynz">
+      <div class="special-banner banner-openmynz">⚡ OpenMyNZ Interview — April 30 — Game Day</div>
+      <div class="day-card-header">
+        <span class="day-num">Day 10</span>
+        <div class="day-badges"><span class="badge badge-openmynz">INTERVIEW</span></div>
+      </div>
+      <div class="day-card-body">
+        <div class="day-focus">OpenMyNZ Interview — Execute Everything You've Built</div>
+        <div class="sessions">
+          <div class="session"><span class="session-tag s1">S1</span><span class="session-text"><strong>Morning ritual (2 hrs before):</strong> Light breakfast. Read your 3 key talking points. Look at your top 2 projects briefly. Don't cram. Be fresh, confident, ready to think.</span></div>
+          <div class="session"><span class="session-tag som">OM</span><span class="session-text"><strong>THE INTERVIEW:</strong> When they ask about your resume — be specific. When they ask to write code — think aloud, explain your approach before typing. Ask clarifying questions. It shows seniority.</span></div>
+          <div class="session"><span class="session-tag s2">S2</span><span class="session-text"><strong>Post-interview debrief:</strong> Write down every question asked, what you answered, what you struggled with. This is data for your general placement prep. Document while fresh.</span></div>
+          <div class="session"><span class="session-tag s3">S3</span><span class="session-text"><strong>Recovery + plan shift:</strong> Regardless of outcome — reflect, learn, continue. From Day 11, the general placement grind begins. The machine doesn't stop.</span></div>
+        </div>
+        <div class="quota-bar">
+          <div class="quota-item">Target: <span>OpenMyNZ offer</span></div>
+          <div class="quota-item">Fallback: <span>invaluable experience</span></div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- end days-grid phase 1 -->
+
+
+  <!-- ====== PHASE 2 ====== -->
+  <div class="phase-header">
+    <div class="phase-badge" style="background:#378ADD22;color:#69aaee;border:1px solid #378ADD44;">Phase 2</div>
+    <div class="phase-title">DSA Fundamentals — Trees, Sorting, Recursion</div>
+    <div class="phase-days">Days 11–17</div>
+  </div>
+
+  <div class="days-grid">
+
+    <!-- DAY 11 -->
+    <div class="day-card">
+      <div class="day-card-header">
+        <span class="day-num">Day 11</span>
+        <div class="day-badges"><span class="badge badge-dsa">DSA</span><span class="badge badge-review">SORT</span></div>
+      </div>
+      <div class="day-card-body">
+        <div class="day-focus">Sorting Algorithms — Deep Mastery</div>
+        <div class="sessions">
+          <div class="session"><span class="session-tag s1">S1</span><span class="session-text"><strong>O(n²) sorts:</strong> Bubble, Selection, Insertion — implement each from scratch. Understand when each is best. Explain why Insertion sort wins on nearly-sorted arrays. Code comparison.</span></div>
+          <div class="session"><span class="session-tag s2">S2</span><span class="session-text"><strong>O(n log n) sorts:</strong> Merge Sort (divide-conquer, stable), Quick Sort (partition schemes, pivot choice). Implement both recursively. Analyze: why is Merge Sort used for linked lists?</span></div>
+          <div class="session"><span class="session-tag s3">S3</span><span class="session-text"><strong>Counting + Radix sort:</strong> Implement Counting Sort for small ranges. Understand stable sort importance. Timed: Sort array of student structs by grade, then by name (stable requirement).</span></div>
+        </div>
+        <div class="quota-bar">
+          <div class="quota-item">Algorithms: <span>6 sorts</span></div>
+          <div class="quota-item">All from scratch</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DAY 12 -->
+    <div class="day-card">
+      <div class="day-card-header">
+        <span class="day-num">Day 12</span>
+        <div class="day-badges"><span class="badge badge-dsa">Trees</span></div>
+      </div>
+      <div class="day-card-body">
+        <div class="day-focus">Binary Trees — Traversals & Fundamental Problems</div>
+        <div class="sessions">
+          <div class="session"><span class="session-tag s1">S1</span><span class="session-text"><strong>Tree basics:</strong> Node struct, insertion. Inorder, Preorder, Postorder traversal — recursive AND iterative (using stack). Level order (BFS with queue). Understand why each traversal is used.</span></div>
+          <div class="session"><span class="session-tag s2">S2</span><span class="session-text"><strong>Tree problems:</strong> Height of tree, count nodes, count leaves, check if balanced, diameter of tree, mirror/invert tree. Code all — these are standard interview questions.</span></div>
+          <div class="session"><span class="session-tag s3">S3</span><span class="session-text"><strong>LCA + paths:</strong> Lowest Common Ancestor (recursive), path from root to node, print all root-to-leaf paths. Explain each solution's time/space complexity before coding.</span></div>
+        </div>
+        <div class="quota-bar">
+          <div class="quota-item">Problems: <span>10 tree problems</span></div>
+          <div class="quota-item">Both recursive + iterative</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DAY 13 -->
+    <div class="day-card">
+      <div class="day-card-header">
+        <span class="day-num">Day 13</span>
+        <div class="day-badges"><span class="badge badge-dsa">BST</span></div>
+      </div>
+      <div class="day-card-body">
+        <div class="day-focus">Binary Search Trees — Full Implementation</div>
+        <div class="sessions">
+          <div class="session"><span class="session-tag s1">S1</span><span class="session-text"><strong>BST operations:</strong> Insert, search, delete (all 3 cases: leaf, one child, two children). Find min, max. Floor and ceil. Verify if BST is valid using inorder property.</span></div>
+          <div class="session"><span class="session-tag s2">S2</span><span class="session-text"><strong>BST problems:</strong> Kth smallest element (inorder), convert sorted array to balanced BST, BST to sorted doubly linked list, count nodes in range [L, R]. Explain each approach.</span></div>
+          <div class="session"><span class="session-tag s3">S3</span><span class="session-text"><strong>Revision sprint:</strong> Write a complete BST class in C++ with all operations. Include a menu-driven main(). Explain to yourself why BST gives O(log n) average. What breaks it?</span></div>
+        </div>
+        <div class="quota-bar">
+          <div class="quota-item">Full BST class: <span>implemented</span></div>
+          <div class="quota-item">Complexity analysis done</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DAY 14 -->
+    <div class="day-card">
+      <div class="day-card-header">
+        <span class="day-num">Day 14</span>
+        <div class="day-badges"><span class="badge badge-dsa">Recursion</span></div>
+      </div>
+      <div class="day-card-body">
+        <div class="day-focus">Recursion Mastery — The Engine of Everything</div>
+        <div class="sessions">
+          <div class="session"><span class="session-tag s1">S1</span><span class="session-text"><strong>Recursion foundations:</strong> Base case discipline, call stack visualization. Solve: factorial, fibonacci (+ memoization), power(x,n), reverse string, check palindrome — all recursively. Draw call trees.</span></div>
+          <div class="session"><span class="session-tag s2">S2</span><span class="session-text"><strong>Advanced recursion:</strong> Tower of Hanoi, generate all subsets, generate all permutations, print all binary strings of length n. Understand "make a choice → recurse → undo choice" pattern.</span></div>
+          <div class="session"><span class="session-tag s3">S3</span><span class="session-text"><strong>Recursion → code translation:</strong> Take any recursive solution from today and trace through it step-by-step on paper. Identify: where does work happen (before vs after recursive call)?</span></div>
+        </div>
+        <div class="quota-bar">
+          <div class="quota-item">Problems: <span>12 recursive</span></div>
+          <div class="quota-item">Draw call tree for 3</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DAY 15 -->
+    <div class="day-card">
+      <div class="day-card-header">
+        <span class="day-num">Day 15</span>
+        <div class="day-badges"><span class="badge badge-bt">BackTrack</span></div>
+      </div>
+      <div class="day-card-body">
+        <div class="day-focus">Backtracking — Introduction & Classic Problems</div>
+        <div class="sessions">
+          <div class="session"><span class="session-tag s1">S1</span><span class="session-text"><strong>Backtracking template:</strong> `choose → explore → unchoose`. N-Queens problem — place queens, check conflicts, backtrack. Understand why brute force + smart pruning = backtracking. Solve for N=4,5,6.</span></div>
+          <div class="session"><span class="session-tag s2">S2</span><span class="session-text"><strong>Classic problems:</strong> Rat in a maze (4 directions), Sudoku solver (constraint + backtrack), Word search in grid, Knight's tour. For each: draw the decision tree before coding.</span></div>
+          <div class="session"><span class="session-tag s3">S3</span><span class="session-text"><strong>Subsets & combinations:</strong> Generate all subsets with/without duplicates, combination sum (pick elements summing to target), phone number letter combinations. Identify the pattern in all of these.</span></div>
+        </div>
+        <div class="quota-bar">
+          <div class="quota-item">Problems: <span>6 backtracking</span></div>
+          <div class="quota-item">Draw decision tree first</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DAY 16 -->
+    <div class="day-card">
+      <div class="day-card-header">
+        <span class="day-num">Day 16</span>
+        <div class="day-badges"><span class="badge badge-bt">BackTrack</span><span class="badge badge-dsa">Advanced</span></div>
+      </div>
+      <div class="day-card-body">
+        <div class="day-focus">Backtracking Advanced + Pruning Strategies</div>
+        <div class="sessions">
+          <div class="session"><span class="session-tag s1">S1</span><span class="session-text"><strong>Permutations deep dive:</strong> Permutations with/without duplicates, permutations of numbers, letter case permutations. Understand visited[] array for state tracking. All solutions cleanly coded.</span></div>
+          <div class="session"><span class="session-tag s2">S2</span><span class="session-text"><strong>Partition problems:</strong> Palindrome partitioning (split string into palindromic parts), IP address restoration (split number into valid IPs). These mix string logic + backtracking — interview favorites.</span></div>
+          <div class="session"><span class="session-tag s3">S3</span><span class="session-text"><strong>Complexity analysis + review:</strong> For each backtracking problem solved this week, what is the worst-case time? Can you prune it? Explain to yourself when backtracking is appropriate vs DP.</span></div>
+        </div>
+        <div class="quota-bar">
+          <div class="quota-item">Problems: <span>6</span></div>
+          <div class="quota-item">Analyze pruning impact</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DAY 17 -->
+    <div class="day-card">
+      <div class="day-card-header">
+        <span class="day-num">Day 17</span>
+        <div class="day-badges"><span class="badge badge-review">REVIEW</span></div>
+      </div>
+      <div class="day-card-body">
+        <div class="day-focus">Phase 2 Consolidation + Mock Interview</div>
+        <div class="sessions">
+          <div class="session"><span class="session-tag s1">S1</span><span class="session-text"><strong>Weak point drilling:</strong> Look at your notes from Days 11–16. Identify 3 things you hesitated on. Spend this session going deep on those 3 only. No breadth — go vertical.</span></div>
+          <div class="session"><span class="session-tag s2">S2</span><span class="session-text"><strong>Speed coding test:</strong> 60-minute timed mock. Pick randomly: 1 tree problem, 1 sorting problem, 1 backtracking problem. Code all 3. Grade yourself: did you finish? Was code correct? Clear?</span></div>
+          <div class="session"><span class="session-tag s3">S3</span><span class="session-text"><strong>Verbal explanations:</strong> Explain merge sort, binary tree traversal, and one backtracking problem aloud as if teaching a junior. If you can teach it, you own it. Record yourself.</span></div>
+        </div>
+        <div class="quota-bar">
+          <div class="quota-item">Mock: <span>60-min timed</span></div>
+          <div class="quota-item">Teach 3 concepts aloud</div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- end phase 2 -->
+
+
+  <!-- ====== PHASE 3 ====== -->
+  <div class="phase-header">
+    <div class="phase-badge" style="background:#7F77DD22;color:#aaa5ee;border:1px solid #7F77DD44;">Phase 3</div>
+    <div class="phase-title">Dynamic Programming — Pattern Mastery</div>
+    <div class="phase-days">Days 18–23</div>
+  </div>
+
+  <div class="days-grid">
+
+    <!-- DAY 18 -->
+    <div class="day-card">
+      <div class="day-card-header">
+        <span class="day-num">Day 18</span>
+        <div class="day-badges"><span class="badge badge-dp">DP</span></div>
+      </div>
+      <div class="day-card-body">
+        <div class="day-focus">DP Introduction — Memoization & Tabulation</div>
+        <div class="sessions">
+          <div class="session"><span class="session-tag s1">S1</span><span class="session-text"><strong>DP mindset:</strong> Optimal substructure + overlapping subproblems. Fibonacci: naive O(2^n) → memoization O(n) → tabulation O(n) → O(1). Draw all 3 versions. Understand state definition.</span></div>
+          <div class="session"><span class="session-tag s2">S2</span><span class="session-text"><strong>1D DP problems:</strong> Climbing stairs, jump game (can you reach end?), house robber (no adjacent), decode ways (number to letter). For each: define state, write recurrence, implement.</span></div>
+          <div class="session"><span class="session-tag s3">S3</span><span class="session-text"><strong>Top-down vs Bottom-up:</strong> Implement min cost climbing stairs both ways. Understand space optimization. Explain when each approach is better. This is interview-level understanding.</span></div>
+        </div>
+        <div class="quota-bar">
+          <div class="quota-item">Problems: <span>6 1D DP</span></div>
+          <div class="quota-item">Both top-down + bottom-up</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DAY 19 -->
+    <div class="day-card">
+      <div class="day-card-header">
+        <span class="day-num">Day 19</span>
+        <div class="day-badges"><span class="badge badge-dp">DP</span></div>
+      </div>
+      <div class="day-card-body">
+        <div class="day-focus">2D DP — Grid & String Problems</div>
+        <div class="sessions">
+          <div class="session"><span class="session-tag s1">S1</span><span class="session-text"><strong>Grid DP:</strong> Unique paths in grid (m×n), unique paths with obstacles, minimum path sum in grid, coin change (ways to make amount), triangle minimum path. Define 2D state clearly for each.</span></div>
+          <div class="session"><span class="session-tag s2">S2</span><span class="session-text"><strong>String DP:</strong> Longest Common Subsequence (LCS) — gold standard. Implement with table. Derive: edit distance, longest common substring, shortest common supersequence from LCS pattern.</span></div>
+          <div class="session"><span class="session-tag s3">S3</span><span class="session-text"><strong>Fill the table by hand:</strong> Take LCS of "ABCBDAB" and "BDCAB". Fill the entire DP table on paper. Trace back the actual subsequence. This is how interviewers test DP understanding.</span></div>
+        </div>
+        <div class="quota-bar">
+          <div class="quota-item">Problems: <span>7 2D DP</span></div>
+          <div class="quota-item">LCS traced by hand</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DAY 20 -->
+    <div class="day-card">
+      <div class="day-card-header">
+        <span class="day-num">Day 20</span>
+        <div class="day-badges"><span class="badge badge-dp">DP</span></div>
+      </div>
+      <div class="day-card-body">
+        <div class="day-focus">Knapsack Pattern — The DP Swiss Army Knife</div>
+        <div class="sessions">
+          <div class="session"><span class="session-tag s1">S1</span><span class="session-text"><strong>0/1 Knapsack:</strong> Classic formulation. Choose or skip each item. Build full DP table, trace solution. Variants: subset sum (can we make weight W?), equal partition problem.</span></div>
+          <div class="session"><span class="session-tag s2">S2</span><span class="session-text"><strong>Unbounded knapsack:</strong> Coin change (min coins), coin change 2 (count ways), rod cutting problem. Understand why unbounded differs — item can be reused. Implement cleanly.</span></div>
+          <div class="session"><span class="session-tag s3">S3</span><span class="session-text"><strong>Pattern recognition drill:</strong> Given any new DP problem — practice identifying: Is it 1D or 2D state? Is it knapsack-style? Is it greedy-able? Solve 2 new problems you haven't seen.</span></div>
+        </div>
+        <div class="quota-bar">
+          <div class="quota-item">Problems: <span>6 knapsack variants</span></div>
+          <div class="quota-item">Pattern ID exercise</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DAY 21 -->
+    <div class="day-card">
+      <div class="day-card-header">
+        <span class="day-num">Day 21</span>
+        <div class="day-badges"><span class="badge badge-dp">DP</span></div>
+      </div>
+      <div class="day-card-body">
+        <div class="day-focus">DP on Intervals + Advanced Patterns</div>
+        <div class="sessions">
+          <div class="session"><span class="session-tag s1">S1</span><span class="session-text"><strong>Interval DP:</strong> Matrix chain multiplication (classic), palindrome partitioning II (min cuts), burst balloons. These require thinking about ranges [i,j]. Expensive but important.</span></div>
+          <div class="session"><span class="session-tag s2">S2</span><span class="session-text"><strong>DP on sequences:</strong> Longest Increasing Subsequence (O(n²) and O(n log n) with binary search), longest bitonic subsequence, number of LIS. These bridge DP + binary search.</span></div>
+          <div class="session"><span class="session-tag s3">S3</span><span class="session-text"><strong>Mock DP interview:</strong> Present 3 DP solutions from this week — explain the state definition, recurrence relation, and complexity for each. This is exactly what interviewers test. Practice until smooth.</span></div>
+        </div>
+        <div class="quota-bar">
+          <div class="quota-item">Problems: <span>5 advanced DP</span></div>
+          <div class="quota-item">Explain 3 fully aloud</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DAY 22 -->
+    <div class="day-card">
+      <div class="day-card-header">
+        <span class="day-num">Day 22</span>
+        <div class="day-badges"><span class="badge badge-dp">DP</span><span class="badge badge-bt">BT+DP</span></div>
+      </div>
+      <div class="day-card-body">
+        <div class="day-focus">DP vs Backtracking — Knowing Which to Use</div>
+        <div class="sessions">
+          <div class="session"><span class="session-tag s1">S1</span><span class="session-text"><strong>Decision framework:</strong> When DP (counting, optimal value, overlapping subproblems) vs when Backtracking (enumerate solutions, no overlapping structure). Solve same problem both ways: word break, palindrome partition.</span></div>
+          <div class="session"><span class="session-tag s2">S2</span><span class="session-text"><strong>Hybrid problems:</strong> Memoized backtracking (top-down DP). Solve: target sum, decode ways, count paths in maze. Implement backtracking first, then add memoization, see the speedup.</span></div>
+          <div class="session"><span class="session-tag s3">S3</span><span class="session-text"><strong>Interview simulation:</strong> Someone gives you a problem. Your job: identify approach in 2 min, explain it, then code it. Practice with 3 unseen problems. Approach clarity is 50% of the interview.</span></div>
+        </div>
+        <div class="quota-bar">
+          <div class="quota-item">Problems: <span>5 DP+BT hybrid</span></div>
+          <div class="quota-item">Approach before code</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DAY 23 -->
+    <div class="day-card">
+      <div class="day-card-header">
+        <span class="day-num">Day 23</span>
+        <div class="day-badges"><span class="badge badge-review">REVIEW</span><span class="badge badge-dp">DP</span></div>
+      </div>
+      <div class="day-card-body">
+        <div class="day-focus">DP Full Review + Timed Assessment</div>
+        <div class="sessions">
+          <div class="session"><span class="session-tag s1">S1</span><span class="session-text"><strong>Pattern catalogue:</strong> Create a personal cheat sheet (write, don't type). List all DP patterns you know, one example each. 1D DP, 2D DP, Knapsack, Interval DP, LIS-type, String DP. This is your reference.</span></div>
+          <div class="session"><span class="session-tag s2">S2</span><span class="session-text"><strong>90-minute mock:</strong> 3 DP problems unseen. Pick medium-difficulty. Enforce: explain approach (5 min), code solution (20 min), test with examples (5 min). Repeat x3. Track time honestly.</span></div>
+          <div class="session"><span class="session-tag s3">S3</span><span class="session-text"><strong>Self-grade:</strong> Which DP patterns still feel shaky? Mark them. You'll revisit during Phase 5 polishing. Rest well — Graphs start tomorrow. Big week ahead.</span></div>
+        </div>
+        <div class="quota-bar">
+          <div class="quota-item">Cheat sheet: <span>written by hand</span></div>
+          <div class="quota-item">Mock: <span>90 min timed</span></div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- end phase 3 -->
+
+
+  <!-- ====== PHASE 4 ====== -->
+  <div class="phase-header">
+    <div class="phase-badge" style="background:#1D9E7522;color:#3dcaa5;border:1px solid #1D9E7544;">Phase 4</div>
+    <div class="phase-title">Graphs — BFS, DFS, Shortest Paths, Algorithms</div>
+    <div class="phase-days">Days 24–28</div>
+  </div>
+
+  <div class="days-grid">
+
+    <!-- DAY 24 -->
+    <div class="day-card">
+      <div class="day-card-header">
+        <span class="day-num">Day 24</span>
+        <div class="day-badges"><span class="badge badge-graph">Graph</span></div>
+      </div>
+      <div class="day-card-body">
+        <div class="day-focus">Graph Representation + BFS + DFS</div>
+        <div class="sessions">
+          <div class="session"><span class="session-tag s1">S1</span><span class="session-text"><strong>Representations:</strong> Adjacency matrix vs adjacency list — when to use each, space/time tradeoffs. Build both for same graph. Directed vs undirected, weighted vs unweighted. Degree of node.</span></div>
+          <div class="session"><span class="session-tag s2">S2</span><span class="session-text"><strong>BFS:</strong> Implement using queue. Find shortest path in unweighted graph. Level-order traversal. Connected components count. Bipartite graph check (2-coloring with BFS).</span></div>
+          <div class="session"><span class="session-tag s3">S3</span><span class="session-text"><strong>DFS:</strong> Recursive and iterative. Cycle detection in undirected graph (via visited+parent). DFS on grid problems: number of islands (classic), flood fill. Trace DFS on paper for one example.</span></div>
+        </div>
+        <div class="quota-bar">
+          <div class="quota-item">Problems: <span>8 graph basics</span></div>
+          <div class="quota-item">Both BFS + DFS variants</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DAY 25 -->
+    <div class="day-card">
+      <div class="day-card-header">
+        <span class="day-num">Day 25</span>
+        <div class="day-badges"><span class="badge badge-graph">Graph</span></div>
+      </div>
+      <div class="day-card-body">
+        <div class="day-focus">Topological Sort + Cycle Detection + DAGs</div>
+        <div class="sessions">
+          <div class="session"><span class="session-tag s1">S1</span><span class="session-text"><strong>Topological Sort:</strong> DFS-based (post-order + stack), Kahn's algorithm (BFS + in-degree). Understand: only for DAGs. Applications: task scheduling, course prerequisites. Implement both.</span></div>
+          <div class="session"><span class="session-tag s2">S2</span><span class="session-text"><strong>Cycle detection in directed graph:</strong> DFS with visited[] and inStack[] arrays. Detect cycle in directed graph — this is a different algorithm from undirected. Understand why. Apply to detect circular dependency.</span></div>
+          <div class="session"><span class="session-tag s3">S3</span><span class="session-text"><strong>Problems:</strong> Course schedule (Leetcode 207, 210 style), alien dictionary (topo sort from word ordering), find eventual safe states. These combine topo sort with graph thinking — interview gold.</span></div>
+        </div>
+        <div class="quota-bar">
+          <div class="quota-item">Topo sort: <span>2 implementations</span></div>
+          <div class="quota-item">Problems: <span>4 DAG problems</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DAY 26 -->
+    <div class="day-card">
+      <div class="day-card-header">
+        <span class="day-num">Day 26</span>
+        <div class="day-badges"><span class="badge badge-graph">Graph</span></div>
+      </div>
+      <div class="day-card-body">
+        <div class="day-focus">Shortest Path — Dijkstra + Bellman-Ford</div>
+        <div class="sessions">
+          <div class="session"><span class="session-tag s1">S1</span><span class="session-text"><strong>Dijkstra's Algorithm:</strong> Priority queue (min-heap) based. Single source shortest path for non-negative weights. Implement using `priority_queue` in C++. Trace through on a 5-node weighted graph.</span></div>
+          <div class="session"><span class="session-tag s2">S2</span><span class="session-text"><strong>Bellman-Ford:</strong> Handles negative weights. Detect negative cycles. Why Dijkstra fails on negative edges. Apply: cheapest flights within k stops (modified Bellman-Ford). Understand V-1 relaxation rounds.</span></div>
+          <div class="session"><span class="session-tag s3">S3</span><span class="session-text"><strong>Floyd-Warshall:</strong> All-pairs shortest path. O(V³). When to use. Implement and trace on 4-node graph. Problems: find city with smallest number of reachable cities within threshold distance.</span></div>
+        </div>
+        <div class="quota-bar">
+          <div class="quota-item">Algorithms: <span>3 shortest path</span></div>
+          <div class="quota-item">Trace by hand once each</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DAY 27 -->
+    <div class="day-card">
+      <div class="day-card-header">
+        <span class="day-num">Day 27</span>
+        <div class="day-badges"><span class="badge badge-graph">Graph</span></div>
+      </div>
+      <div class="day-card-body">
+        <div class="day-focus">MST, Union-Find, Advanced Graph</div>
+        <div class="sessions">
+          <div class="session"><span class="session-tag s1">S1</span><span class="session-text"><strong>Minimum Spanning Tree:</strong> Prim's (greedy, priority queue) and Kruskal's (sort edges + Union-Find). Implement both. Understand when each is preferred. Application: cheapest network connections.</span></div>
+          <div class="session"><span class="session-tag s2">S2</span><span class="session-text"><strong>Union-Find (DSU):</strong> Union by rank + path compression. O(α(n)) near O(1). Applications: connected components, detect cycle, number of provinces. This structure appears in many problems — learn it deeply.</span></div>
+          <div class="session"><span class="session-tag s3">S3</span><span class="session-text"><strong>Hard graph problems:</strong> Word ladder (BFS on implicit graph), accounts merge (DSU), critical connections in network (Tarjan's bridges algorithm). These test deep graph understanding.</span></div>
+        </div>
+        <div class="quota-bar">
+          <div class="quota-item">MST: <span>Prim's + Kruskal's</span></div>
+          <div class="quota-item">DSU: <span>with path compression</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DAY 28 -->
+    <div class="day-card">
+      <div class="day-card-header">
+        <span class="day-num">Day 28</span>
+        <div class="day-badges"><span class="badge badge-graph">Graph</span><span class="badge badge-review">Review</span></div>
+      </div>
+      <div class="day-card-body">
+        <div class="day-focus">Graph Review + Timed Challenge</div>
+        <div class="sessions">
+          <div class="session"><span class="session-tag s1">S1</span><span class="session-text"><strong>Graph cheat sheet:</strong> Write (by hand) — BFS vs DFS use cases, Dijkstra when to use, Topo sort when to use, DSU when to use, MST when to use. One line each, one example each. Done in 1 hour.</span></div>
+          <div class="session"><span class="session-tag s2">S2</span><span class="session-text"><strong>2-hour timed mock:</strong> Pick 1 BFS problem, 1 shortest path problem, 1 topo sort problem. Solve all 3. Time limit: 35 min each. Clean, correct, well-commented code required.</span></div>
+          <div class="session"><span class="session-tag s3">S3</span><span class="session-text"><strong>Presentation practice:</strong> Explain Dijkstra's algorithm and its time complexity as if presenting to an interviewer. Then: number of islands — explain BFS approach, code it live on paper, analyze complexity.</span></div>
+        </div>
+        <div class="quota-bar">
+          <div class="quota-item">Mock: <span>2-hour timed</span></div>
+          <div class="quota-item">Cheat sheet: <span>handwritten</span></div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- end phase 4 -->
+
+
+  <!-- ====== PHASE 5 ====== -->
+  <div class="phase-header">
+    <div class="phase-badge" style="background:#EF9F2722;color:var(--accent2);border:1px solid #EF9F2744;">Phase 5</div>
+    <div class="phase-title">Final Polish — Interview Simulation & Placement Ready</div>
+    <div class="phase-days">Days 29–30</div>
+  </div>
+
+  <div class="days-grid">
+
+    <!-- DAY 29 -->
+    <div class="day-card">
+      <div class="day-card-header">
+        <span class="day-num">Day 29</span>
+        <div class="day-badges"><span class="badge badge-review">SIMULATE</span></div>
+      </div>
+      <div class="day-card-body">
+        <div class="day-focus">Full-Day Interview Simulation</div>
+        <div class="sessions">
+          <div class="session"><span class="session-tag s1">S1</span><span class="session-text"><strong>Round 1 simulation (90 min):</strong> Technical — 2 coding problems (1 DSA, 1 logic), answer aloud, code on paper. Review after: was code correct? Did you communicate clearly? Did you consider edge cases?</span></div>
+          <div class="session"><span class="session-tag s2">S2</span><span class="session-text"><strong>Round 2 simulation (90 min):</strong> OOP/CS fundamentals — virtual functions, pointer vs reference, stack vs heap, what's a segfault, process vs thread basics. Answer each as if in interview. Timed.</span></div>
+          <div class="session"><span class="session-tag s3">S3</span><span class="session-text"><strong>Round 3 simulation (60 min):</strong> HR/behavioral — "Tell me about yourself" (2 min), "biggest challenge", "team conflict", "why this company", "where do you see yourself in 5 years". Record on phone. Critique your own answers.</span></div>
+        </div>
+        <div class="quota-bar">
+          <div class="quota-item">Full interview: <span>3 rounds simulated</span></div>
+          <div class="quota-item">Record & review yourself</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DAY 30 -->
+    <div class="day-card interview-day">
+      <div class="special-banner banner-interview">🎯 Day 30 — You Are Placement Ready. Now Execute.</div>
+      <div class="day-card-header">
+        <span class="day-num">Day 30</span>
+        <div class="day-badges"><span class="badge badge-interview">READY</span></div>
+      </div>
+      <div class="day-card-body">
+        <div class="day-focus">Final Day — Sharpen the Sword, Trust the Work</div>
+        <div class="sessions">
+          <div class="session"><span class="session-tag s1">S1</span><span class="session-text"><strong>Master review:</strong> Go through your handwritten cheat sheets — sorting, trees, DP patterns, graph algorithms, C pointers, OOP concepts. Read only, don't solve. Your mind already knows this. Confirm it.</span></div>
+          <div class="session"><span class="session-tag s2">S2</span><span class="session-text"><strong>Sharpest problems only:</strong> Solve 3 problems you've solved before but now want to execute perfectly. Focus: clean code, clear variable names, comment logic, handle edge cases. This is craftsmanship.</span></div>
+          <div class="session"><span class="session-tag s3">S3</span><span class="session-text"><strong>The commitment:</strong> Write down on paper: what you've learned, what you can now do, and what you want from your career. You've done 30 days of soul-giving work. You are ready. Go get placed.</span></div>
+        </div>
+        <div class="quota-bar">
+          <div class="quota-item">Status: <span>Placement Ready</span></div>
+          <div class="quota-item">C/C++ ✓ OOP ✓ DSA ✓ DP ✓ BT ✓ Graphs ✓</div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- end phase 5 -->
+
+</div><!-- end plan-container -->
+
+<!-- FOOTER -->
+<div class="war-footer">
+  <p>"You said give your soul. This plan collected it daily. Every session, every problem, every late night — that <strong>compounds</strong>. The person who finishes Day 30 is not the same person who started Day 1. Go get placed, Rohanth."</p>
+  <p style="margin-top: 1rem; font-family: 'Space Mono', monospace; font-size: 0.65rem; color: var(--text-dim); letter-spacing: 0.1em;">BUILT FOR ROHANTH R B · PLACEMENT WAR PLAN · APRIL 21 – MAY 20</p>
+</div>
+
+</body>
+</html>
