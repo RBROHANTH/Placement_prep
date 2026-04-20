@@ -1,0 +1,926 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rohanth's 30-Day Placement Sprint</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #060608;
+  --bg2: #0d0d12;
+  --bg3: #131318;
+  --surface: #17171f;
+  --surface2: #1e1e28;
+  --border: rgba(255,255,255,0.07);
+  --border2: rgba(255,255,255,0.14);
+  --text: #ededf5;
+  --muted: #7777a0;
+  --dim: #44445a;
+
+  --omz: #ff4d6d;
+  --omz-bg: rgba(255,77,109,0.1);
+  --omz-border: rgba(255,77,109,0.3);
+
+  --gen: #00d4aa;
+  --gen-bg: rgba(0,212,170,0.1);
+  --gen-border: rgba(0,212,170,0.3);
+
+  --ptr: #ff9f43;
+  --ptr-bg: rgba(255,159,67,0.1);
+  --ptr-border: rgba(255,159,67,0.3);
+
+  --dp: #a78bfa;
+  --dp-bg: rgba(167,139,250,0.1);
+  --dp-border: rgba(167,139,250,0.3);
+
+  --interview: #ffd60a;
+  --interview-bg: rgba(255,214,10,0.1);
+  --interview-border: rgba(255,214,10,0.35);
+
+  --fire: #ff6b35;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 60% 40% at 80% 10%, rgba(255,77,109,0.06) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 50% at 10% 80%, rgba(0,212,170,0.05) 0%, transparent 60%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+  background-size: 32px 32px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.wrapper {
+  position: relative;
+  z-index: 1;
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 2rem 1.25rem 5rem;
+}
+
+/* HERO */
+.hero {
+  padding: 3rem 0 2rem;
+  position: relative;
+}
+
+.hero-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.25em;
+  color: var(--omz);
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.hero-tag::before {
+  content: '';
+  display: inline-block;
+  width: 20px;
+  height: 1px;
+  background: var(--omz);
+}
+
+.hero h1 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(3rem, 9vw, 6rem);
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  line-height: 0.95;
+  margin-bottom: 1rem;
+}
+
+.hero h1 .line1 { color: var(--text); }
+.hero h1 .line2 {
+  background: linear-gradient(90deg, var(--omz), var(--fire), var(--interview));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero-sub {
+  font-size: 0.9rem;
+  color: var(--muted);
+  max-width: 500px;
+  line-height: 1.7;
+  margin-bottom: 2rem;
+}
+
+.hero-sub em {
+  color: var(--gen);
+  font-style: normal;
+  font-weight: 600;
+}
+
+/* PROGRESS */
+.progress-bar-wrap {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1rem 1.25rem;
+  margin-bottom: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.progress-track {
+  flex: 1;
+  height: 6px;
+  background: var(--bg3);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--omz), var(--fire));
+  border-radius: 4px;
+  transition: width 1s cubic-bezier(0.16, 1, 0.3, 1);
+  width: 0%;
+}
+
+.progress-text {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+/* METRICS */
+.metrics {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  margin-bottom: 1.5rem;
+}
+
+.metric {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 0.9rem 0.75rem;
+  text-align: center;
+  transition: border-color 0.2s, transform 0.2s;
+  position: relative;
+  overflow: hidden;
+}
+
+.metric:hover { transform: translateY(-2px); border-color: var(--border2); }
+
+.metric-val {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2rem;
+  letter-spacing: 0.04em;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+.metric-label {
+  font-size: 10px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* INTEL BOX */
+.intel {
+  background: var(--omz-bg);
+  border: 1px solid var(--omz-border);
+  border-left: 3px solid var(--omz);
+  border-radius: 10px;
+  padding: 1rem 1.25rem;
+  margin-bottom: 2rem;
+  font-size: 0.83rem;
+  line-height: 1.8;
+  color: var(--muted);
+}
+
+.intel-title {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  color: var(--omz);
+  text-transform: uppercase;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.intel ul {
+  list-style: none;
+  padding: 0;
+}
+
+.intel ul li::before {
+  content: '▸ ';
+  color: var(--omz);
+}
+
+.intel strong { color: var(--text); }
+
+/* LEGEND */
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 1.75rem;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-family: 'JetBrains Mono', monospace;
+  color: var(--muted);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 4px 10px;
+  border-radius: 20px;
+}
+
+.legend-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* WEEKS */
+.week-block { margin-bottom: 2rem; }
+
+.week-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 1rem;
+}
+
+.week-line { flex: 1; height: 1px; background: var(--border); }
+
+.week-badge {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  white-space: nowrap;
+}
+
+.badge-omz { background: var(--omz-bg); color: var(--omz); border: 1px solid var(--omz-border); }
+.badge-gen { background: var(--gen-bg); color: var(--gen); border: 1px solid var(--gen-border); }
+.badge-dp { background: var(--dp-bg); color: var(--dp); border: 1px solid var(--dp-border); }
+.badge-interview { background: var(--interview-bg); color: var(--interview); border: 1px solid var(--interview-border); }
+.badge-d-day { background: rgba(255,77,109,0.25); color: #ff4d6d; border: 2px solid var(--omz); }
+
+.week-label {
+  font-size: 12px;
+  color: var(--muted);
+  font-family: 'JetBrains Mono', monospace;
+  white-space: nowrap;
+}
+
+/* GRID */
+.days-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 8px;
+}
+
+@media (max-width: 600px) {
+  .days-grid { grid-template-columns: repeat(3, 1fr); }
+  .metrics { grid-template-columns: repeat(2, 1fr); }
+}
+
+.day-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 0.75rem 0.65rem;
+  cursor: pointer;
+  transition: border-color 0.2s, transform 0.15s, background 0.2s;
+  position: relative;
+  overflow: hidden;
+  min-height: 90px;
+}
+
+.day-card:hover {
+  border-color: var(--border2);
+  transform: translateY(-2px);
+  background: var(--surface2);
+}
+
+.day-card.selected {
+  background: var(--surface2);
+}
+
+.day-card.selected::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 10px;
+  border: 1.5px solid var(--omz);
+  pointer-events: none;
+}
+
+/* Phase color top bars */
+.day-card.phase-omz { border-top: 2px solid var(--omz); }
+.day-card.phase-gen { border-top: 2px solid var(--gen); }
+.day-card.phase-dp { border-top: 2px solid var(--dp); }
+.day-card.phase-interview { border-top: 2px solid var(--interview); }
+.day-card.phase-dday { border-top: 3px solid var(--omz); background: rgba(255,77,109,0.07); }
+
+.day-num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.5rem;
+  letter-spacing: 0.05em;
+  line-height: 1;
+  margin-bottom: 4px;
+  color: var(--dim);
+}
+
+.day-card.phase-dday .day-num { color: var(--omz); }
+
+.day-label {
+  font-size: 10px;
+  color: var(--muted);
+  line-height: 1.4;
+  font-weight: 500;
+}
+
+.day-badge {
+  position: absolute;
+  top: 6px; right: 6px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 8px;
+  padding: 2px 5px;
+  border-radius: 3px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+
+.badge-fire { background: var(--omz-bg); color: var(--omz); }
+.badge-go { background: rgba(255,214,10,0.2); color: var(--interview); }
+
+/* DETAIL PANEL */
+#detail {
+  display: none;
+  background: var(--surface);
+  border: 1px solid var(--border2);
+  border-radius: 14px;
+  padding: 1.5rem;
+  margin-top: 1.5rem;
+  animation: fadeSlide 0.25s ease;
+}
+
+@keyframes fadeSlide {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.detail-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 1.25rem;
+  flex-wrap: wrap;
+}
+
+.detail-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.5rem;
+  letter-spacing: 0.05em;
+  color: var(--text);
+}
+
+.detail-phase-badge {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  flex-shrink: 0;
+}
+
+/* SESSIONS */
+.session {
+  display: grid;
+  grid-template-columns: 130px 1fr;
+  gap: 16px;
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--border);
+  align-items: start;
+}
+
+.session:last-child { border-bottom: none; }
+
+.session-time {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--dim);
+  margin-bottom: 6px;
+  letter-spacing: 0.05em;
+}
+
+.session-slot {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  padding: 2px 8px;
+  border-radius: 20px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.slot-1 { background: var(--omz-bg); color: var(--omz); border: 1px solid var(--omz-border); }
+.slot-2 { background: var(--ptr-bg); color: var(--ptr); border: 1px solid var(--ptr-border); }
+.slot-3 { background: var(--gen-bg); color: var(--gen); border: 1px solid var(--gen-border); }
+
+/* After day 10, relabel sessions */
+.slot-3-gen { background: var(--gen-bg); color: var(--gen); border: 1px solid var(--gen-border); }
+
+.session-task {
+  font-size: 0.875rem;
+  color: var(--text);
+  line-height: 1.6;
+  font-weight: 500;
+  margin-bottom: 6px;
+}
+
+.session-note {
+  font-size: 0.78rem;
+  color: var(--muted);
+  line-height: 1.6;
+  font-style: italic;
+  border-left: 2px solid var(--border2);
+  padding-left: 10px;
+}
+
+.session-tag {
+  display: inline-block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 8px;
+  padding: 2px 7px;
+  border-radius: 3px;
+  margin-bottom: 6px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.tag-omz { background: var(--omz-bg); color: var(--omz); }
+.tag-gen { background: var(--gen-bg); color: var(--gen); }
+
+@media (max-width: 600px) {
+  .session { grid-template-columns: 1fr; gap: 8px; }
+}
+
+/* D-DAY special panel */
+.dday-panel {
+  text-align: center;
+  padding: 2rem;
+}
+
+.dday-panel .dday-icon { font-size: 3rem; margin-bottom: 1rem; }
+.dday-panel h2 { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; color: var(--omz); letter-spacing: 0.05em; margin-bottom: 0.5rem; }
+.dday-panel p { font-size: 0.875rem; color: var(--muted); line-height: 1.8; }
+.dday-panel strong { color: var(--text); }
+</style>
+</head>
+<body>
+<div class="wrapper">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-tag">30-day placement sprint · starting april 20</div>
+    <h1>
+      <div class="line1">ROHANTH'S</div>
+      <div class="line2">PLACEMENT WAR</div>
+    </h1>
+    <p class="hero-sub">
+      No mercy. No rest. You've got <em>Openmyz on Day 11</em> and a career on the line.
+      The next 30 days will decide everything. Show up every session. Miss nothing.
+    </p>
+  </div>
+
+  <!-- PROGRESS -->
+  <div class="progress-bar-wrap">
+    <span style="font-size:11px;color:var(--muted);font-family:'JetBrains Mono',monospace;white-space:nowrap">PROGRESS</span>
+    <div class="progress-track">
+      <div class="progress-fill" id="progressFill"></div>
+    </div>
+    <span class="progress-text" id="progressText">0 / 30 days</span>
+  </div>
+
+  <!-- METRICS -->
+  <div class="metrics">
+    <div class="metric">
+      <div class="metric-val" style="color:var(--omz)">10</div>
+      <div class="metric-label">Days to Openmyz</div>
+    </div>
+    <div class="metric">
+      <div class="metric-val" style="color:var(--gen)">90</div>
+      <div class="metric-label">Sessions total</div>
+    </div>
+    <div class="metric">
+      <div class="metric-val" style="color:var(--ptr)">7.5h</div>
+      <div class="metric-label">Per day</div>
+    </div>
+    <div class="metric">
+      <div class="metric-val" style="color:var(--interview)">0</div>
+      <div class="metric-label">Excuses allowed</div>
+    </div>
+  </div>
+
+  <!-- INTEL -->
+  <div class="intel">
+    <div class="intel-title">⚡ Openmyz Intelligence (from Glassdoor + Insider)</div>
+    <ul>
+      <li><strong>Resume-based questioning</strong> — they ask only what's on your CV. List C/C++ → expect deep pointer questions.</li>
+      <li><strong>Pointers</strong> (declare, size, void*, function pointers), <strong>OOP classes</strong> (write actual member functions), <strong>logical functions</strong> (substring in C, reverse string)</li>
+      <li><strong>No LeetCode hard.</strong> No DP grind for Openmyz. Basics done perfectly beats advanced done poorly.</li>
+      <li><strong>Union vs struct</strong>, dynamic programming basics, project deep-dive. Be ready to explain every line you wrote.</li>
+      <li>Process: Online aptitude → f2f/online screening → HR. <strong>Package offered: 15 LPA.</strong></li>
+    </ul>
+  </div>
+
+  <!-- LEGEND -->
+  <div class="legend">
+    <div class="legend-item"><div class="legend-dot" style="background:var(--omz)"></div>Openmyz Session</div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--ptr)"></div>C Pointers/Advanced C</div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--gen)"></div>General Placement</div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--dp)"></div>DP / Graphs / Trees</div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--interview)"></div>Interview Simulation</div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--omz);box-shadow:0 0 6px var(--omz)"></div>D-Day</div>
+  </div>
+
+  <!-- CALENDAR -->
+  <div id="calendar"></div>
+
+  <!-- DETAIL PANEL -->
+  <div id="detail"></div>
+
+</div>
+
+<script>
+const plan = {
+  // ═══════════════════════════════════════════════════════════════
+  // DAYS 1–4: C POINTERS + ADVANCED C (2 Openmyz + 1 General/day)
+  // ═══════════════════════════════════════════════════════════════
+  1: { phase:'omz', label:'C Pointers I', sessions:[
+    {time:'6:00–8:30am', slot:1, tag:'omz', task:'C Pointers fundamentals: declare, initialize, dereference. int*, char*, void*. Draw memory diagrams by hand for each. Then: pointer arithmetic — what does ptr++ do vs value++ ?', note:'This is Openmyz Session 1. They WILL ask pointer declaration. Know it cold.'},
+    {time:'2:00–4:30pm', slot:2, tag:'omz', task:'Pointer to pointer (**), pointer to array, array of pointers. Write 10 small programs from scratch. Include: swap using pointers, print array using pointer arithmetic only.', note:'Boobathi Anna said they asked logical functions in C. Substring, reverse — all pointer-adjacent. Build muscle memory now.'},
+    {time:'8:30–11:00pm', slot:3, tag:'gen', task:'General Placement — Arrays & Strings: 6 easy problems on LeetCode (two sum, reverse string, palindrome check, valid parentheses, max subarray, contains duplicate). Java.', note:'Keep this light tonight. You burn on Openmyz prep in mornings.'}
+  ]},
+  2: { phase:'omz', label:'C Pointers II', sessions:[
+    {time:'6:00–8:30am', slot:1, tag:'omz', task:'Function pointers: declare, call, pass as argument. Write: a generic sort function that takes a comparator function pointer (just like qsort in stdlib). Then: pointer to function returning pointer.', note:'Advanced but possible. If they see C/C++ on your resume and you know function pointers, they will be impressed.'},
+    {time:'2:00–4:30pm', slot:2, tag:'omz', task:'Dynamic memory: malloc, calloc, realloc, free. Write a dynamic array from scratch in C. Common bugs: dangling pointers, double free, memory leak — demonstrate and fix each one.', note:'void* and typecasting. size of pointer vs size of value. These are exactly the "pointer address size of variable" question from Glassdoor.'},
+    {time:'8:30–11:00pm', slot:3, tag:'gen', task:'General Placement — Linked Lists: implement singly linked list in Java (insert, delete, reverse). 3 LeetCode easy problems.', note:''}
+  ]},
+  3: { phase:'omz', label:'Advanced C + OOP', sessions:[
+    {time:'6:00–8:30am', slot:1, tag:'omz', task:'C structs vs unions: write programs demonstrating memory layout difference. sizeof(union) vs sizeof(struct). Then write a Student struct with nested pointer. Access members via pointer (-> operator).', note:'Glassdoor review EXPLICITLY says they asked union vs struct difference. You now know why.'},
+    {time:'2:00–4:30pm', slot:2, tag:'omz', task:'C++ OOP for Openmyz: write a class with private members, public methods, constructor, destructor. Implement a BankAccount class with deposit/withdraw. Then: inheritance — write a SavingsAccount that extends BankAccount.', note:'Boobathi Anna said they asked to write classes and member functions for specific use cases. THIS is what they want.'},
+    {time:'8:30–11:00pm', slot:3, tag:'gen', task:'General Placement — Stacks & Queues: implement both from scratch in Java. Solve: valid parentheses, min stack, implement queue using stacks. 4 problems.', note:''}
+  ]},
+  4: { phase:'omz', label:'C Logic Functions', sessions:[
+    {time:'6:00–8:30am', slot:1, tag:'omz', task:'Write these exact functions in C from scratch — no Googling: (1) substring(char* str, int start, int len), (2) reverse_string(char* str) in-place, (3) is_palindrome(char* str), (4) count_words(char* str), (5) string_concat without strcat.', note:'These are the EXACT logical functions Boobathi Anna mentioned. Do them until you can write any from memory in 5 minutes.'},
+    {time:'2:00–4:30pm', slot:2, tag:'omz', task:'Pointers + strings deep dive: string as char*, pointer arithmetic on strings. Write: my_strlen, my_strcmp, my_strcpy — all using only pointer arithmetic, zero array indexing. Then: 2D array via pointer to pointer.', note:'Resume says C/C++. They will probe exactly this depth.'},
+    {time:'8:30–11:00pm', slot:3, tag:'gen', task:'General Placement — Sorting algorithms: implement bubble sort, selection sort, insertion sort, merge sort in Java. Write all from memory. Then: 3 LeetCode problems using sorting.', note:''}
+  ]},
+  // ═══════════════════════════════════════════════════════════════
+  // DAYS 5–10: OPENMYZ CORE PREP + GENERAL (2+1 per day)
+  // ═══════════════════════════════════════════════════════════════
+  5: { phase:'omz', label:'Aptitude Blitz', sessions:[
+    {time:'6:00–8:30am', slot:1, tag:'omz', task:'Openmyz aptitude simulation: 30 Qs timed (30 mins). Focus: percentages, ratios, time & work, speed-distance. Score yourself. Every wrong answer — understand the formula, not just the solution.', note:'Online aptitude is the FIRST filter. You do not get to the f2f if you fail this.'},
+    {time:'2:00–4:30pm', slot:2, tag:'omz', task:'OOP concepts verbal drill: practice saying aloud — encapsulation, inheritance, polymorphism, abstraction with a real code example for each. Write a polymorphism example in C++ (virtual functions). Time yourself: each concept in 90 seconds.', note:'f2f will ask OOP. They want to hear you explain it, not just read it.'},
+    {time:'8:30–11:00pm', slot:3, tag:'gen', task:'General Placement — Binary Search: classic binary search, search in rotated array, find first and last position. 5 LeetCode problems. Java.', note:''}
+  ]},
+  6: { phase:'omz', label:'Project Deep Dive', sessions:[
+    {time:'6:00–8:30am', slot:1, tag:'omz', task:'Your SIH project — prepare to explain every component: (1) What problem does it solve? (2) What tech stack, why? (3) Which part did YOU write? (4) What would you do differently? Speak it out loud for 3 minutes. Record yourself.', note:'Boobathi Anna: "They asked about project." You will be grilled on this. You must own every line.'},
+    {time:'2:00–4:30pm', slot:2, tag:'omz', task:'Aptitude: 25 Qs (logical reasoning + verbal) timed 25 mins. Then: 10 C/C++ output MCQs — predict output of pointer-heavy snippets. No IDE, pencil and paper.', note:'Output prediction appears in their tech MCQ round. Practice on paper to simulate the environment.'},
+    {time:'8:30–11:00pm', slot:3, tag:'gen', task:'General Placement — Trees: BFS, DFS, inorder/preorder/postorder traversals. 5 LeetCode problems. Code from scratch in Java, no help.', note:''}
+  ]},
+  7: { phase:'omz', label:'Dynamic Programming Intro', sessions:[
+    {time:'6:00–8:30am', slot:1, tag:'omz', task:'DP for Openmyz (basics only — they won\'t go deep): Fibonacci with memoization vs tabulation. Longest Common Subsequence. Understand the pattern: overlapping subproblems + optimal substructure. Code both in C.', note:'Glassdoor mentions DP. Not hard DP. Know the concept well enough to explain and solve basic problems.'},
+    {time:'2:00–4:30pm', slot:2, tag:'omz', task:'Aptitude simulation 2: 30 Qs mixed (quant + logical + verbal) — 30 mins. Set a strict timer. Practice skipping and coming back. Build your own "panic protocol": stuck 3 mins → mark, move on.', note:'You have 10 mins less than you think. Skipping strategy is a skill you must practice.'},
+    {time:'8:30–11:00pm', slot:3, tag:'gen', task:'General Placement — Graphs: adjacency list representation, BFS, DFS. 4 LeetCode problems: number of islands, course schedule, clone graph, flood fill.', note:''}
+  ]},
+  8: { phase:'omz', label:'Full Mock Round 1', sessions:[
+    {time:'6:00–8:30am', slot:1, tag:'omz', task:'FULL Openmyz aptitude mock: 40 Qs, 40 mins, no pausing, no checking. Score, analyse, categorise wrong answers: (a) formula gap (b) calculation error (c) didn\'t read properly. Fix each category differently.', note:'This is your first real benchmark. Be brutal with your analysis.'},
+    {time:'2:00–4:30pm', slot:2, tag:'omz', task:'Write from memory — no IDE, no Google: (1) substring function in C (2) BankAccount class in C++ with inheritance (3) swap two numbers using pointers (4) factorial using recursion. Time: 40 mins total.', note:'If you can\'t write these cold, you can\'t write them under interview pressure. Find out now.'},
+    {time:'8:30–11:00pm', slot:3, tag:'gen', task:'General Placement — Recursion: power set, permutations, tower of Hanoi, print all subsets. 4 problems. Focus on drawing the recursion tree for each.', note:''}
+  ]},
+  9: { phase:'omz', label:'Weak Point Drill', sessions:[
+    {time:'6:00–8:30am', slot:1, tag:'omz', task:'Take your wrong answers from Day 8 mock. Rework every single one from scratch. Then: drill the specific aptitude formulas you got wrong — 15 new practice questions on those exact topics only.', note:'Don\'t spread thin. Fix the holes.'},
+    {time:'2:00–4:30pm', slot:2, tag:'omz', task:'Verbal: reading comprehension (2 passages, 10 Qs), sentence correction (10 Qs), vocabulary in context (5 Qs). Timed. Then: mock f2f interview out loud — introduce yourself, explain your project, answer "why Openmyz?"', note:'The verbal section will cost you if you ignore it. Don\'t.'},
+    {time:'8:30–11:00pm', slot:3, tag:'gen', task:'General Placement — Backtracking intro: N-Queens concept, subset sum, rat in a maze. Understand the template: choose → explore → unchoose. 3 problems.', note:''}
+  ]},
+  10: { phase:'omz', label:'Final Dress Rehearsal', sessions:[
+    {time:'6:00–8:30am', slot:1, tag:'omz', task:'FINAL Openmyz simulation — real conditions: (1) Aptitude 30 Qs, 30 mins (2) C/C++ output MCQs 10 Qs, 10 mins (3) Write substring + BankAccount class from scratch, 30 mins. No breaks. No IDE. Paper and pen.', note:'This is as close to the real thing as you can get. Treat it like the actual exam. Wear what you\'ll wear on the day.'},
+    {time:'2:00–4:30pm', slot:2, tag:'omz', task:'Final verbal drill + spoken answers. Answer out loud: (1) Tell me about yourself (2) Walk me through your SIH project (3) Why should we hire you (4) What is a pointer? Explain OOP. Time each. Refine. Repeat until fluent.', note:'Tomorrow is Day 11. You are as prepared as you can be. Trust the reps.'},
+    {time:'8:30–11:00pm', slot:3, tag:'gen', task:'LIGHT SESSION: Review your panic protocol. Recode 3 problems you know well — confidence builders. Sleep by 10pm. No new content tonight.', note:'Your brain needs consolidation, not more input. The work is done. Rest is part of the plan.'}
+  ]},
+  // ═══════════════════════════════════════
+  // DAY 11: OPENMYZ INTERVIEW DAY
+  // ═══════════════════════════════════════
+  11: { phase:'dday', label:'OPENMYZ — APRIL 30', sessions:[] },
+  // ═══════════════════════════════════════════════════════════════
+  // DAYS 12–30: GENERAL PLACEMENT FULL SPRINT
+  // ═══════════════════════════════════════════════════════════════
+  12: { phase:'gen', label:'Recovery + Foundations', sessions:[
+    {time:'6:00–8:30am', slot:1, tag:'gen', task:'Arrays deep dive: two pointers, sliding window technique. 6 LeetCode problems: longest substring without repeat, container with most water, 3sum, max product subarray.', note:'Post-interview recovery day, but no full rest. Channel the energy.'},
+    {time:'2:00–4:30pm', slot:2, tag:'gen', task:'Java OOP fundamentals from scratch: classes, objects, constructors, static vs instance, access modifiers. Write 5 class designs (Employee, Library, Vehicle hierarchy). Then: 10 output prediction MCQs.', note:'Placement MCQ rounds test Java OOP output. You need to predict behavior without running code.'},
+    {time:'8:30–11:00pm', slot:3, tag:'gen', task:'Linked Lists full revision: reverse, detect cycle (Floyd\'s), merge two sorted lists, find middle, remove nth from end. 5 problems timed.', note:''}
+  ]},
+  13: { phase:'gen', label:'Trees Deep Dive', sessions:[
+    {time:'6:00–8:30am', slot:1, tag:'gen', task:'Binary Trees: all traversals (inorder, preorder, postorder, level order) from scratch in Java. Then: height, diameter, lowest common ancestor, path sum, mirror tree. 5 problems.', note:'Trees appear in almost every placement interview. Master the traversals first — everything else builds on them.'},
+    {time:'2:00–4:30pm', slot:2, tag:'gen', task:'BST: insert, search, delete, validate BST (is valid BST?), kth smallest element, convert sorted array to BST. 5 problems.', note:''},
+    {time:'8:30–11:00pm', slot:3, tag:'gen', task:'Aptitude: 30 Qs timed (numbers + percentages + ratios). Then: 2 tree problems from scratch, no hints.', note:''}
+  ]},
+  14: { phase:'gen', label:'Graphs I', sessions:[
+    {time:'6:00–8:30am', slot:1, tag:'gen', task:'Graphs foundations: adjacency matrix vs list, directed vs undirected, weighted. BFS implementation from scratch (iterative, using Queue). DFS implementation (recursive + iterative). Trace both on paper first.', note:'Draw the graph. Trace the algorithm by hand before you code. This is how you actually understand it.'},
+    {time:'2:00–4:30pm', slot:2, tag:'gen', task:'Graph problems: number of islands, connected components, flood fill, clone graph. 4 LeetCode problems.', note:''},
+    {time:'8:30–11:00pm', slot:3, tag:'gen', task:'Cycle detection: in directed graph (DFS + color), in undirected graph (Union-Find). Implement and solve 2 problems each.', note:''}
+  ]},
+  15: { phase:'gen', label:'Graphs II', sessions:[
+    {time:'6:00–8:30am', slot:1, tag:'gen', task:'Dijkstra\'s shortest path: implement from scratch using priority queue. Then BFS for unweighted shortest path. Solve: network delay time, cheapest flights within k stops.', note:''},
+    {time:'2:00–4:30pm', slot:2, tag:'gen', task:'Topological sort: Kahn\'s algorithm (BFS-based) + DFS-based. Solve: course schedule I and II. Then: bipartite graph check.', note:'Course schedule is one of the most common graph problems in placements. Own it.'},
+    {time:'8:30–11:00pm', slot:3, tag:'gen', task:'Aptitude: 25 Qs (time & work + speed & distance). Strict 25-min timer. Analyse wrong answers by category.', note:''}
+  ]},
+  16: { phase:'gen', label:'Backtracking', sessions:[
+    {time:'6:00–8:30am', slot:1, tag:'gen', task:'Backtracking template mastery: the choose-explore-unchoose pattern. Implement: N-Queens, subset sum, rat in a maze, permutations of a string. Draw the recursion tree for N-Queens.', note:'Once you see the template, every backtracking problem is the same skeleton. Internalize the pattern.'},
+    {time:'2:00–4:30pm', slot:2, tag:'gen', task:'Backtracking problems: Sudoku solver, word search, combination sum, generate parentheses. 4 LeetCode problems. Time: 30 mins each.', note:''},
+    {time:'8:30–11:00pm', slot:3, tag:'gen', task:'Java OOP: inheritance, method overriding, super keyword, interface vs abstract class. 10 output prediction MCQs. Then: write a Shape hierarchy (Circle, Rectangle extends Shape).', note:''}
+  ]},
+  17: { phase:'gen', label:'DP Foundations', sessions:[
+    {time:'6:00–8:30am', slot:1, tag:'gen', task:'DP from first principles: memoization vs tabulation. Fibonacci, climbing stairs, house robber, coin change. For each: (1) identify overlapping subproblems (2) define state (3) write recurrence (4) code top-down then bottom-up.', note:'DP is a way of thinking, not a list of tricks. Learn to identify it, not memorize solutions.'},
+    {time:'2:00–4:30pm', slot:2, tag:'gen', task:'DP string problems: Longest Common Subsequence, Edit Distance, Longest Common Substring. Visualize the 2D DP table. Trace through with a small example by hand before coding.', note:''},
+    {time:'8:30–11:00pm', slot:3, tag:'gen', task:'Aptitude full mock: 40 Qs, 40 mins, mixed (quant + logical + verbal). Score, analyse, categorise errors.', note:''}
+  ]},
+  18: { phase:'dp', label:'DP Advanced', sessions:[
+    {time:'6:00–8:30am', slot:1, tag:'gen', task:'0/1 Knapsack: understand why greedy fails. Implement top-down and bottom-up. Then: subset sum, partition equal subset sum, target sum. Master the "include or exclude" pattern.', note:'Knapsack variants appear constantly. The pattern is always include/exclude. Once you see it, you see it everywhere.'},
+    {time:'2:00–4:30pm', slot:2, tag:'gen', task:'DP on sequences: Longest Increasing Subsequence (O(n²) and O(n log n)), Maximum Sum Subarray (Kadane\'s), Maximum Product Subarray. 4 problems.', note:''},
+    {time:'8:30–11:00pm', slot:3, tag:'gen', task:'Trees + Graphs combined revision: recode 6 problems from memory — 3 tree, 3 graph. No hints. Time: 15 mins each.', note:''}
+  ]},
+  19: { phase:'dp', label:'DP Matrix + Full Review', sessions:[
+    {time:'6:00–8:30am', slot:1, tag:'gen', task:'DP on grids: unique paths, minimum path sum, maximal square, word break. For each: draw the DP grid, fill manually for small input, then code.', note:'Grid DP is extremely common. You need to be able to set it up fast.'},
+    {time:'2:00–4:30pm', slot:2, tag:'gen', task:'Mixed DS drill: 6 problems across array, linked list, tree, stack/queue. 15 mins each. No hints after the first read.', note:''},
+    {time:'8:30–11:00pm', slot:3, tag:'gen', task:'Aptitude: 25 Qs data interpretation + logical reasoning. Timed 25 mins.', note:''}
+  ]},
+  20: { phase:'dp', label:'Heaps + Priority Queue', sessions:[
+    {time:'6:00–8:30am', slot:1, tag:'gen', task:'Heaps: min-heap vs max-heap. Implement heap from scratch in Java. Then: top K frequent elements, kth largest in array, merge k sorted lists, task scheduler. 4 problems.', note:'PriorityQueue in Java is your best friend. Know how to customize the comparator.'},
+    {time:'2:00–4:30pm', slot:2, tag:'gen', task:'Advanced backtracking: word ladder II, palindrome partitioning, letter combinations of phone number. 3 problems. Then: re-solve N-Queens from memory.', note:''},
+    {time:'8:30–11:00pm', slot:3, tag:'gen', task:'Full aptitude mock: 40 Qs, 35 mins. Benchmark vs Day 17 mock. Track trajectory.', note:''}
+  ]},
+  21: { phase:'gen', label:'Simulation Day 1', sessions:[
+    {time:'6:00–8:30am', slot:1, tag:'gen', task:'Full placement simulation Part 1: Aptitude 30 Qs (30 min) + Java tech MCQs 20 Qs (20 min). Real conditions — no pause, no phone, no IDE.', note:'You are rehearsing the mental state, not just the content. Simulate the stress.'},
+    {time:'2:00–4:30pm', slot:2, tag:'gen', task:'Full placement simulation Part 2: 3 DSA problems (90 min total, 30 min each). Pick: 1 graph, 1 DP, 1 backtracking. Java. No hints after reading.', note:''},
+    {time:'8:30–11:00pm', slot:3, tag:'gen', task:'Debrief: where did you slow down? What did you blank on? Write it. That\'s your Week 4 drill list.', note:''}
+  ]},
+  22: { phase:'gen', label:'SQL + Strings', sessions:[
+    {time:'6:00–8:30am', slot:1, tag:'gen', task:'SQL fundamentals: SELECT, WHERE, GROUP BY, HAVING, ORDER BY, JOINs (inner, left, right, full). Solve 10 LeetCode SQL problems. Combine joins with aggregation.', note:'Many companies include SQL in written rounds. 2 hours now prevents a nasty surprise later.'},
+    {time:'2:00–4:30pm', slot:2, tag:'gen', task:'String algorithms: KMP pattern matching (understand the failure function), anagram groups, longest palindromic substring (Manacher\'s concept). 4 problems.', note:''},
+    {time:'8:30–11:00pm', slot:3, tag:'gen', task:'DP revision: recode coin change, LCS, 0/1 knapsack from memory. No hints. If you can\'t, find the exact gap and fix it.', note:''}
+  ]},
+  23: { phase:'interview', label:'Interview Mechanics', sessions:[
+    {time:'6:00–8:30am', slot:1, tag:'gen', task:'Mock technical interview — spoken aloud, full simulation: (1) Introduce yourself — 60 seconds (2) Explain SIH project — 3 minutes (3) Whiteboard: write LCS algorithm explaining as you go (4) Output question: 3 Java snippets predict output.', note:'Talking through your solution while coding is a different skill from coding silently. Practice it explicitly.'},
+    {time:'2:00–4:30pm', slot:2, tag:'gen', task:'HR round preparation: answer each out loud, 2 minutes max. Why this company? Why should we hire you? Tell me a failure. Where do you see yourself in 5 years? What is your greatest strength/weakness?', note:''},
+    {time:'8:30–11:00pm', slot:3, tag:'gen', task:'Graphs + DP mixed: 4 problems across both topics. 20 mins each. If stuck after 15 mins, move on — return once.', note:''}
+  ]},
+  24: { phase:'interview', label:'Speed Training', sessions:[
+    {time:'6:00–8:30am', slot:1, tag:'gen', task:'Array + string speed round: 8 easy LeetCode problems in 60 mins. Goal is not accuracy — goal is building instinct. Pattern recognition at speed.', note:'You know this material. Now make it automatic.'},
+    {time:'2:00–4:30pm', slot:2, tag:'gen', task:'Aptitude speed drill: 40 Qs in 35 mins. Then review every wrong answer. The goal is to close the gap between what you know and what you can do under pressure.', note:''},
+    {time:'8:30–11:00pm', slot:3, tag:'gen', task:'Trees final: recode all traversals + BST operations from memory. Then: maximum path sum, serialize/deserialize tree. 3 problems.', note:''}
+  ]},
+  25: { phase:'interview', label:'Weak Point Blitz', sessions:[
+    {time:'6:00–8:30am', slot:1, tag:'gen', task:'Pull your debrief from Day 21. Pick your top 3 weak topics. Drill them — 3 new problems each. No other topics today morning.', note:'The simulation told you where the holes are. Patch them.'},
+    {time:'2:00–4:30pm', slot:2, tag:'gen', task:'DP hard: word break II, burst balloons, regular expression matching. These are the DP problems that separate candidates. Understand the pattern for each — don\'t memorize.', note:''},
+    {time:'8:30–11:00pm', slot:3, tag:'gen', task:'SQL window functions: RANK, ROW_NUMBER, DENSE_RANK, LAG, LEAD. 5 LeetCode SQL problems.', note:''}
+  ]},
+  26: { phase:'interview', label:'Simulation Day 2', sessions:[
+    {time:'6:00–8:30am', slot:1, tag:'gen', task:'Full company simulation: aptitude 25 Qs (25 min) + tech MCQs 15 Qs (15 min) + 1 coding problem (30 min). Real conditions. No IDE — write on paper first, then type.', note:'The paper-first habit forces you to think before coding. Companies respect this.'},
+    {time:'2:00–4:30pm', slot:2, tag:'gen', task:'Graph advanced: minimum spanning tree (Kruskal\'s / Prim\'s concept), strongly connected components concept, bridges and articulation points concept. Solve 2 problems.', note:''},
+    {time:'8:30–11:00pm', slot:3, tag:'gen', task:'Backtracking + recursion mixed: 4 problems across both. 20 mins each. No hints.', note:''}
+  ]},
+  27: { phase:'interview', label:'Portfolio + LinkedIn', sessions:[
+    {time:'6:00–8:30am', slot:1, tag:'gen', task:'LinkedIn & Resume audit: (1) Move SIH Top 6 to the top of projects (2) Rewrite the project description to be founder-level: problem solved, tech used, impact achieved (3) Update skills section with C, C++, Java, DSA, OOP.', note:'You are not a job seeker. You are a builder looking for the right problem. That energy must come through your profile.'},
+    {time:'2:00–4:30pm', slot:2, tag:'gen', task:'DP full revision: recode 6 problems from memory across all DP types (1D, 2D, string, knapsack). Timed 15 mins each.', note:''},
+    {time:'8:30–11:00pm', slot:3, tag:'gen', task:'Mixed bag: 5 problems across trees, graphs, backtracking. Random selection. 15 mins each.', note:''}
+  ]},
+  28: { phase:'interview', label:'Full Simulation Day 3', sessions:[
+    {time:'6:00–8:30am', slot:1, tag:'gen', task:'Final full simulation: (1) Aptitude 30 Qs, 30 min (2) Java MCQs 20 Qs, 20 min (3) 2 DSA problems — 1 graph, 1 DP — 60 min total. No breaks. Paper + pen then type.', note:'Third and final full simulation. You should feel the difference from Day 21.'},
+    {time:'2:00–4:30pm', slot:2, tag:'gen', task:'Spoken mock technical interview: solve one medium problem out loud, explain approach first, handle edge cases explicitly, dry-run before coding. Then: answer 3 HR questions.', note:''},
+    {time:'8:30–11:00pm', slot:3, tag:'gen', task:'Aptitude: 25 Qs mixed. Review wrong answers. Write down the 5 formula types you still sometimes miss — memorise them tonight.', note:''}
+  ]},
+  29: { phase:'interview', label:'Final Drill', sessions:[
+    {time:'6:00–8:30am', slot:1, tag:'gen', task:'Recode your 10 most important problems from the last 30 days — the ones you\'d want to have in your head walking into an interview. Do it from memory, no hints.', note:'These are your anchor problems. The ones your subconscious reaches for under pressure.'},
+    {time:'2:00–4:30pm', slot:2, tag:'gen', task:'Trees + Graphs final: 4 problems across both, 20 mins each. Then: explain BFS, DFS, Dijkstra out loud as if teaching someone.', note:'Teaching is the highest form of understanding. If you can\'t explain it simply, you don\'t know it yet.'},
+    {time:'8:30–11:00pm', slot:3, tag:'gen', task:'Write your panic protocol on paper and stick it near your laptop: "If stuck 10 mins → mark, move on. Come back once. Partial solution > no solution."', note:''}
+  ]},
+  30: { phase:'interview', label:'Day Before — Rest + Review', sessions:[
+    {time:'6:00–8:30am', slot:1, tag:'gen', task:'Light review only: recode 5 favourite problems from memory. No new content. No hard problems. This is a confidence session, not a learning session.', note:'Your brain needs consolidation space before an interview or exam. Trust the 29 days of work.'},
+    {time:'2:00–4:30pm', slot:2, tag:'gen', task:'Read through your panic protocol. Review your SIH project description once. Prepare your clothes, laptop charger, water. Do one spoken mock HR introduction.', note:''},
+    {time:'8:30–9:30pm', slot:3, tag:'gen', task:'No problems tonight. Light reading at most. Sleep by 10pm. Your performance tomorrow depends more on this decision than on anything else you could study.', note:'You gave your soul for 30 days. Now let the prep do its job. Rest is not weakness — it\'s the final rep.'}
+  ]},
+};
+
+const weeks = [
+  {label:'Week 1 — C Pointers + Openmyz Core', badge:'omz', phase:'omz', days:[1,2,3,4,5,6,7]},
+  {label:'Week 2 — Openmyz Final Prep', badge:'omz', phase:'omz', days:[8,9,10,11]},
+  {label:'Week 3 — General Placement: Trees, Graphs, Backtracking', badge:'gen', phase:'gen', days:[12,13,14,15,16,17,18]},
+  {label:'Week 4 — DP + Simulation', badge:'dp', phase:'dp', days:[19,20,21,22,23,24,25]},
+  {label:'Week 5 — Interview Mode', badge:'interview', phase:'interview', days:[26,27,28,29,30]},
+];
+
+const dayLabels = {};
+Object.entries(plan).forEach(([d, v]) => { dayLabels[d] = v.label; });
+
+const phaseColors = {
+  omz: 'var(--omz)',
+  gen: 'var(--gen)',
+  dp: 'var(--dp)',
+  interview: 'var(--interview)',
+  dday: 'var(--omz)',
+};
+
+let selected = null;
+
+function renderDay(d) {
+  const data = plan[d];
+  const isDDay = data && data.phase === 'dday';
+  const card = document.createElement('div');
+  let cls = 'day-card';
+  if (data) cls += ' phase-' + data.phase;
+  card.className = cls;
+
+  let badge = '';
+  if (d <= 4) badge = `<span class="day-badge badge-fire">PTR</span>`;
+  if (isDDay) badge = `<span class="day-badge badge-go">D-DAY</span>`;
+  if (d >= 26) badge = `<span class="day-badge" style="background:var(--interview-bg);color:var(--interview);font-family:'JetBrains Mono',monospace;font-size:8px;padding:2px 5px;border-radius:3px;position:absolute;top:6px;right:6px;font-weight:700">INT</span>`;
+
+  card.innerHTML = `
+    <div class="day-num">DAY ${d}</div>
+    ${badge}
+    <div class="day-label">${data ? data.label : ''}</div>
+  `;
+
+  card.onclick = () => {
+    if (selected) selected.classList.remove('selected');
+    card.classList.add('selected');
+    selected = card;
+    showDetail(d);
+  };
+  return card;
+}
+
+const slotLabels = {
+  1: { label: 'Session 1', after10: 'Morning' },
+  2: { label: 'Session 2', after10: 'Afternoon' },
+  3: { label: 'Session 3', after10: 'Evening' },
+};
+
+function showDetail(d) {
+  const data = plan[d];
+  const panel = document.getElementById('detail');
+  panel.style.display = 'block';
+
+  if (!data || data.phase === 'dday') {
+    panel.innerHTML = `
+      <div class="dday-panel">
+        <div class="dday-icon">🔥</div>
+        <h2>DAY 11 — OPENMYZ INTERVIEW DAY</h2>
+        <p>
+          This is it. <strong>Everything from Day 1 to Day 10 was for this moment.</strong><br><br>
+          Wake up early. Review your panic protocol — once. Eat a proper meal.<br>
+          Walk in knowing you wrote those pointer functions cold. You built that class hierarchy.<br>
+          You solved substring in C without Google. You know your project inside out.<br><br>
+          <strong>Aptitude first filter — don't rush, don't freeze.</strong> Stuck 3 min → mark → move on.<br>
+          <strong>f2f — they are not testing perfection. They are testing fundamentals and attitude.</strong><br><br>
+          Be honest about what you know. Think out loud. Show your reasoning, not just your answer.<br><br>
+          You gave your soul for 10 days. Now collect.
+        </p>
+      </div>
+    `;
+    panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    return;
+  }
+
+  const color = phaseColors[data.phase] || 'var(--gen)';
+  const phaseLabel = data.phase === 'omz' ? 'OPENMYZ' : data.phase === 'gen' ? 'GENERAL' : data.phase === 'dp' ? 'DP/GRAPHS' : 'INTERVIEW';
+
+  let sessionNote = '';
+  if (d <= 10) {
+    sessionNote = `<div style="font-size:11px;color:var(--muted);font-family:'JetBrains Mono',monospace;padding:8px 12px;background:var(--surface2);border-radius:6px;margin-bottom:1rem;border-left:2px solid var(--omz)">Sessions 1+2 → Openmyz prep &nbsp;|&nbsp; Session 3 → General Placement</div>`;
+  }
+
+  let html = `
+    <div class="detail-header">
+      <div class="detail-title">DAY ${d} — ${data.label}</div>
+      <span class="detail-phase-badge" style="background:${color}22;color:${color};border:1px solid ${color}55">${phaseLabel}</span>
+    </div>
+    ${sessionNote}
+  `;
+
+  data.sessions.forEach((s, i) => {
+    const slotNum = s.slot || (i + 1);
+    let slotClass = `slot-${slotNum}`;
+    const slotLabelText = d <= 10
+      ? (slotNum <= 2 ? `Openmyz S${slotNum}` : 'General')
+      : (['Morning', 'Afternoon', 'Evening'][i]);
+
+    const tagColor = s.tag === 'omz'
+      ? 'background:var(--omz-bg);color:var(--omz);border:1px solid var(--omz-border)'
+      : 'background:var(--gen-bg);color:var(--gen);border:1px solid var(--gen-border)';
+    const tagLabel = s.tag === 'omz' ? 'OPENMYZ' : 'GENERAL';
+
+    html += `
+      <div class="session">
+        <div class="session-left">
+          <div class="session-time">${s.time}</div>
+          <div style="display:flex;flex-direction:column;gap:4px">
+            <span class="session-slot ${slotClass}">${slotLabelText}</span>
+            <span class="session-tag" style="${tagColor};display:inline-block;font-family:'JetBrains Mono',monospace;font-size:8px;padding:2px 7px;border-radius:3px;font-weight:700;letter-spacing:0.08em">${tagLabel}</span>
+          </div>
+        </div>
+        <div class="session-body">
+          <div class="session-task">${s.task}</div>
+          ${s.note ? `<div class="session-note">${s.note}</div>` : ''}
+        </div>
+      </div>
+    `;
+  });
+
+  panel.innerHTML = html;
+  panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+// Build calendar
+const cal = document.getElementById('calendar');
+weeks.forEach(w => {
+  const block = document.createElement('div');
+  block.className = 'week-block';
+  block.innerHTML = `
+    <div class="week-header">
+      <div class="week-line"></div>
+      <span class="week-badge badge-${w.badge}">${w.badge.toUpperCase()}</span>
+      <span class="week-label">${w.label}</span>
+      <div class="week-line"></div>
+    </div>
+  `;
+  const grid = document.createElement('div');
+  grid.className = 'days-grid';
+  w.days.forEach(d => grid.appendChild(renderDay(d)));
+  block.appendChild(grid);
+  cal.appendChild(block);
+});
+
+// Progress: day 1 = today
+const today = 1;
+const pct = Math.round(((today - 1) / 30) * 100);
+document.getElementById('progressFill').style.width = pct + '%';
+document.getElementById('progressText').textContent = `Day ${today} of 30`;
+setTimeout(() => { document.getElementById('progressFill').style.width = pct + '%'; }, 100);
+
+// Auto open day 1
+setTimeout(() => {
+  const first = document.querySelector('.day-card');
+  if (first) first.click();
+}, 400);
+</script>
+</body>
+</html>
