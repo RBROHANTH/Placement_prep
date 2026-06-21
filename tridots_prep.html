@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Tridots Tech — Placement Prep | Rohanth R B</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+
+  :root {
+    --bg: #0f1117;
+    --bg2: #161b27;
+    --bg3: #1e2535;
+    --border: #2a3147;
+    --text: #e8eaf0;
+    --muted: #7b85a0;
+    --dim: #4a5268;
+    --purple: #7c6fcd;
+    --purple-bg: #1e1a3a;
+    --purple-dim: #2d2750;
+    --teal: #2dd4aa;
+    --teal-bg: #0d2e28;
+    --blue: #4fa3e3;
+    --blue-bg: #0d1e35;
+    --amber: #f0a840;
+    --amber-bg: #2a1e08;
+    --coral: #e06060;
+    --coral-bg: #2a0f0f;
+    --green: #5ec97a;
+    --green-bg: #0d2018;
+    --pink: #d46faa;
+    --pink-bg: #2a1020;
+    --font: 'Inter', sans-serif;
+    --mono: 'JetBrains Mono', monospace;
+    --radius: 10px;
+    --radius-sm: 6px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--text); font-family: var(--font); font-size: 15px; line-height: 1.7; }
+
+  /* Layout */
+  .sidebar { position: fixed; top: 0; left: 0; width: 240px; height: 100vh; background: var(--bg2); border-right: 1px solid var(--border); overflow-y: auto; padding: 1.5rem 0; z-index: 100; }
+  .main { margin-left: 240px; padding: 2.5rem 3rem; max-width: 960px; }
+
+  /* Sidebar */
+  .sidebar-logo { padding: 0 1.25rem 1.5rem; border-bottom: 1px solid var(--border); margin-bottom: 1rem; }
+  .sidebar-logo .name { font-size: 14px; font-weight: 600; color: var(--text); }
+  .sidebar-logo .sub { font-size: 11px; color: var(--muted); margin-top: 2px; }
+  .nav-section { padding: 0.5rem 1.25rem 0.25rem; font-size: 10px; font-weight: 600; color: var(--dim); letter-spacing: 0.1em; text-transform: uppercase; }
+  .nav-link { display: flex; align-items: center; gap: 8px; padding: 7px 1.25rem; font-size: 13px; color: var(--muted); text-decoration: none; border-left: 2px solid transparent; transition: all 0.15s; cursor: pointer; }
+  .nav-link:hover { color: var(--text); background: var(--bg3); }
+  .nav-link.active { color: var(--purple); border-left-color: var(--purple); background: var(--purple-bg); }
+  .nav-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+
+  /* Section headers */
+  .section { margin-bottom: 3rem; }
+  .section-eyebrow { font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+  .section-title { font-size: 26px; font-weight: 600; color: var(--text); margin-bottom: 4px; }
+  .section-sub { font-size: 14px; color: var(--muted); margin-bottom: 1.5rem; }
+  .divider { height: 1px; background: var(--border); margin: 2.5rem 0; }
+
+  /* Cards */
+  .card { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.25rem 1.5rem; margin-bottom: 12px; }
+  .card-title { font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 6px; }
+  .card-body { font-size: 13.5px; color: var(--muted); line-height: 1.75; }
+
+  /* Badges */
+  .badge { display: inline-block; font-size: 11px; font-weight: 500; padding: 2px 9px; border-radius: 20px; }
+  .b-easy { background: var(--green-bg); color: var(--green); }
+  .b-medium { background: var(--amber-bg); color: var(--amber); }
+  .b-hard { background: var(--coral-bg); color: var(--coral); }
+  .b-projects { background: var(--blue-bg); color: var(--blue); }
+  .b-oop { background: var(--amber-bg); color: var(--amber); }
+  .b-dbms { background: var(--teal-bg); color: var(--teal); }
+  .b-python { background: var(--pink-bg); color: var(--pink); }
+  .b-cn { background: var(--purple-bg); color: var(--purple); }
+  .b-ds { background: var(--green-bg); color: var(--green); }
+  .b-gd { background: #1a1520; color: #c084fc; }
+
+  /* Q&A accordion */
+  .qa-item { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 8px; overflow: hidden; }
+  .qa-head { display: flex; align-items: flex-start; gap: 12px; padding: 1rem 1.25rem; cursor: pointer; user-select: none; transition: background 0.15s; }
+  .qa-head:hover { background: var(--bg3); }
+  .qa-num { font-size: 11px; font-weight: 600; color: var(--dim); min-width: 24px; padding-top: 2px; font-family: var(--mono); }
+  .qa-meta { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; margin-bottom: 4px; }
+  .qa-q { font-size: 14px; font-weight: 500; color: var(--text); line-height: 1.5; }
+  .qa-chevron { margin-left: auto; color: var(--dim); font-size: 18px; flex-shrink: 0; transition: transform 0.2s; padding-top: 2px; }
+  .qa-item.open .qa-chevron { transform: rotate(180deg); }
+  .qa-ans { display: none; padding: 0 1.25rem 1rem 3.75rem; font-size: 13.5px; color: var(--muted); line-height: 1.8; border-top: 1px solid var(--border); padding-top: 1rem; }
+  .qa-item.open .qa-ans { display: block; }
+  .qa-ans code { font-family: var(--mono); background: var(--bg3); padding: 1px 6px; border-radius: 4px; font-size: 12px; color: var(--teal); }
+
+  /* Filter bar */
+  .filter-bar { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 1.25rem; }
+  .filter-btn { padding: 5px 14px; border-radius: 20px; border: 1px solid var(--border); background: var(--bg2); font-size: 12px; color: var(--muted); cursor: pointer; transition: all 0.15s; font-family: var(--font); }
+  .filter-btn:hover { border-color: var(--purple); color: var(--text); }
+  .filter-btn.active { background: var(--purple-bg); border-color: var(--purple); color: var(--purple); font-weight: 500; }
+
+  /* Search */
+  .search-wrap { margin-bottom: 1.25rem; }
+  .search-wrap input { width: 100%; padding: 9px 14px; border-radius: var(--radius-sm); border: 1px solid var(--border); background: var(--bg2); font-size: 14px; color: var(--text); font-family: var(--font); outline: none; }
+  .search-wrap input:focus { border-color: var(--purple); }
+  .search-wrap input::placeholder { color: var(--dim); }
+
+  /* Code block */
+  .code-block { background: var(--bg3); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 12px 14px; font-family: var(--mono); font-size: 12.5px; line-height: 1.75; color: var(--teal); white-space: pre; margin: 8px 0 12px; overflow-x: auto; }
+
+  /* Alert / tip */
+  .alert { padding: 12px 16px; border-radius: var(--radius-sm); font-size: 13px; line-height: 1.7; margin-bottom: 12px; border-left: 3px solid; }
+  .alert-purple { background: var(--purple-dim); border-color: var(--purple); color: #b8aeee; }
+  .alert-teal { background: var(--teal-bg); border-color: var(--teal); color: #7ddbc4; }
+  .alert-amber { background: var(--amber-bg); border-color: var(--amber); color: #d4a84a; }
+
+  /* GD moves table */
+  .moves-table { width: 100%; border-collapse: collapse; font-size: 13px; margin-bottom: 1rem; }
+  .moves-table th { text-align: left; padding: 8px 12px; border-bottom: 1px solid var(--border); color: var(--dim); font-weight: 500; font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; }
+  .moves-table td { padding: 10px 12px; border-bottom: 1px solid var(--border); color: var(--muted); vertical-align: top; }
+  .moves-table td:first-child { color: var(--text); font-weight: 500; font-size: 13px; min-width: 200px; }
+  .moves-table tr:last-child td { border-bottom: none; }
+
+  /* Two col */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+  /* Stats row */
+  .stats-row { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 1.5rem; }
+  .stat { background: var(--bg3); border-radius: var(--radius-sm); padding: 10px 16px; }
+  .stat-val { font-size: 22px; font-weight: 600; color: var(--text); }
+  .stat-label { font-size: 11px; color: var(--dim); }
+
+  /* Round tabs */
+  .round-tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 1.5rem; }
+  .rtab { padding: 7px 16px; border-radius: 20px; border: 1px solid var(--border); background: var(--bg2); font-size: 13px; cursor: pointer; color: var(--muted); transition: all 0.15s; font-family: var(--font); }
+  .rtab:hover:not(.active) { background: var(--bg3); }
+  .rtab.r1.active { background: var(--blue-bg); color: var(--blue); border-color: var(--blue); font-weight: 500; }
+  .rtab.r2.active { background: var(--purple-bg); color: var(--purple); border-color: var(--purple); font-weight: 500; }
+  .rtab.r3.active { background: var(--amber-bg); color: var(--amber); border-color: var(--amber); font-weight: 500; }
+  .rtab.r4.active { background: var(--teal-bg); color: var(--teal); border-color: var(--teal); font-weight: 500; }
+
+  /* Mobile */
+  @media (max-width: 768px) {
+    .sidebar { display: none; }
+    .main { margin-left: 0; padding: 1.5rem; }
+    .two-col { grid-template-columns: 1fr; }
+  }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar { width: 5px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+  /* Section hidden */
+  .page-section { display: none; }
+  .page-section.active { display: block; }
+
+  /* GD topic chips */
+  .chip-grid { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 1rem; }
+  .gd-chip { padding: 6px 14px; border-radius: var(--radius-sm); border: 1px solid var(--border); background: var(--bg3); font-size: 13px; color: var(--muted); cursor: pointer; transition: all 0.15s; }
+  .gd-chip:hover { border-color: #c084fc; color: #c084fc; }
+  .gd-chip.selected { background: #1a1520; border-color: #c084fc; color: #c084fc; font-weight: 500; }
+  .gd-detail { display: none; }
+  .gd-detail.show { display: block; }
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<nav class="sidebar">
+  <div class="sidebar-logo">
+    <div class="name">Rohanth R B</div>
+    <div class="sub">Tridots Tech — Placement Prep</div>
+  </div>
+
+  <div class="nav-section">Rounds</div>
+  <a class="nav-link active" onclick="showPage('overview')"><span class="nav-dot" style="background:#7c6fcd"></span>Overview</a>
+  <a class="nav-link" onclick="showPage('oa')"><span class="nav-dot" style="background:#4fa3e3"></span>Round 1 — OA</a>
+  <a class="nav-link" onclick="showPage('gd')"><span class="nav-dot" style="background:#c084fc"></span>Round 2 — GD</a>
+  <a class="nav-link" onclick="showPage('technical')"><span class="nav-dot" style="background:#f0a840"></span>Round 3 — Technical</a>
+  <a class="nav-link" onclick="showPage('hr')"><span class="nav-dot" style="background:#2dd4aa"></span>Round 4 — MD/HR</a>
+
+  <div class="nav-section" style="margin-top:1rem;">Question Banks</div>
+  <a class="nav-link" onclick="showPage('q-projects')"><span class="nav-dot" style="background:#4fa3e3"></span>Projects (9)</a>
+  <a class="nav-link" onclick="showPage('q-oop')"><span class="nav-dot" style="background:#f0a840"></span>OOP (9)</a>
+  <a class="nav-link" onclick="showPage('q-dbms')"><span class="nav-dot" style="background:#2dd4aa"></span>DBMS (12)</a>
+  <a class="nav-link" onclick="showPage('q-python')"><span class="nav-dot" style="background:#d46faa"></span>Python (10)</a>
+  <a class="nav-link" onclick="showPage('q-cn')"><span class="nav-dot" style="background:#7c6fcd"></span>Computer Networks (16)</a>
+  <a class="nav-link" onclick="showPage('q-ds')"><span class="nav-dot" style="background:#5ec97a"></span>Data Structures (14)</a>
+
+  <div class="nav-section" style="margin-top:1rem;">All Questions</div>
+  <a class="nav-link" onclick="showPage('all-questions')"><span class="nav-dot" style="background:#7b85a0"></span>Search all 70+</a>
+</nav>
+
+<!-- MAIN -->
+<main class="main">
+
+<!-- OVERVIEW -->
+<div id="overview" class="page-section active">
+  <div class="section-eyebrow">Tridots Tech · Chennai · Porur</div>
+  <h1 class="section-title">Placement Prep Guide</h1>
+  <p class="section-sub">Everything from your prep sessions — all 4 rounds, all question banks, GD tactics. Built for Rohanth R B.</p>
+
+  <div class="stats-row">
+    <div class="stat"><div class="stat-val">4</div><div class="stat-label">Rounds</div></div>
+    <div class="stat"><div class="stat-val">70+</div><div class="stat-label">Questions</div></div>
+    <div class="stat"><div class="stat-val">6</div><div class="stat-label">Topics</div></div>
+    <div class="stat"><div class="stat-val">12</div><div class="stat-label">GD Topics</div></div>
+  </div>
+
+  <div class="alert alert-purple">Tridots Tech is a Frappe + ERPNext company based in Porur, Chennai. Their stack: Python, Frappe framework, JavaScript, MariaDB. They build custom ERP implementations + their own GO1 product suite. Freshers go in as Full Stack or Python Developers and work on real client projects from day one.</div>
+
+  <div class="two-col">
+    <div class="card">
+      <div class="card-title">Round 1 — Online Assessment</div>
+      <div class="card-body">Technical aptitude, logical reasoning, programming fundamentals. Python output tracing, OOP MCQs, SQL basics, CN fundamentals. ~30–40 min.</div>
+    </div>
+    <div class="card">
+      <div class="card-title">Round 2 — Group Discussion</div>
+      <div class="card-body">Batch-wise, 20 min per batch, 8–12 candidates. Structured communication. Engineering, technical, and emerging functional topics.</div>
+    </div>
+    <div class="card">
+      <div class="card-title">Round 3 — Technical Interview</div>
+      <div class="card-body">In-person or virtual. Projects, domain knowledge, problem solving, OOP, DBMS, Python. They want builders — lead with Ambuli and SIH.</div>
+    </div>
+    <div class="card">
+      <div class="card-title">Round 4 — MD / HR</div>
+      <div class="card-body">Managing Director + Corporate HR. Cultural fit, long-term retention, deployment. Tell your story — SIH Top 6 belongs here.</div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+  <div class="section-eyebrow">Your three headline moves</div>
+  <div class="alert alert-teal"><strong>Project opener:</strong> "I built a solo indie horror game in Unity 3D with a custom node-based AI pathfinding system — deliberately avoiding NavMesh to create ritualistic, non-optimal patrol behaviour that feels supernatural." That sentence alone signals systems thinking + deliberate design decisions.</div>
+  <div class="alert alert-teal"><strong>Leadership story:</strong> "I led a 6-person team at Smart India Hackathon 2025. Internal conflicts mid-competition, tight build window, incomplete features — I cut scope, gamified the demo, and we placed Top 6 nationally out of 500+." Use this in GD, Technical, and MD round.</div>
+  <div class="alert alert-teal"><strong>Why Tridots:</strong> "Tridots works at the intersection of ERP, full-stack engineering, and AI automation. I've built products end-to-end solo. I want to work in a team that ships real things for real clients. Tridots is a builder's company." Specific. Not generic.</div>
+</div>
+
+<!-- OA -->
+<div id="oa" class="page-section">
+  <div class="section-eyebrow">Round 1</div>
+  <h1 class="section-title">Online Assessment</h1>
+  <p class="section-sub">Technical aptitude · Logical reasoning · Programming fundamentals</p>
+
+  <div class="alert alert-purple">Your edge: You got 9/10 on DP without knowing DP at Mr. Cooper — same raw pattern recognition applies here. Panic protocol: if stuck 10 minutes, mark and move. Come back once. Never spiral.</div>
+
+  <div class="card">
+    <div class="card-title">What to expect</div>
+    <div class="card-body">Python output tracing MCQs, OOP concept MCQs, time complexity identification, basic SQL SELECT queries, OSI model / TCP-UDP MCQs, number series, syllogisms, blood relations, direction sense, coding-decoding, seating arrangement. One short coding question possible — likely Python or Java array/string problem.</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Tridots-specific context</div>
+    <div class="card-body">They build in ERPNext, Frappe (Python), and full-stack web. Expect at least one question touching databases or web. Know what ERP stands for. Python tracing questions may include OOP snippets — class variables, inheritance, overriding.</div>
+  </div>
+
+  <div class="divider"></div>
+  <div class="section-eyebrow">Python — common traps to know cold</div>
+
+  <div class="qa-item">
+    <div class="qa-head" onclick="toggleQA(this)">
+      <div class="qa-num">01</div>
+      <div style="flex:1">
+        <div class="qa-meta"><span class="badge b-python">Python</span><span class="badge b-easy">easy</span></div>
+        <div class="qa-q">List reference vs copy trap — what does this print?</div>
+      </div>
+      <div class="qa-chevron">⌄</div>
+    </div>
+    <div class="qa-ans">
+      <div class="code-block">a = [1, 2, 3]
+b = a
+b.append(4)
+print(a)</div>
+      Answer: <code>[1, 2, 3, 4]</code> — b = a assigns the reference, not a copy. Both a and b point to the same list. Use <code>b = a.copy()</code> for a separate copy. This is the most common Python trap in placement OAs.
+    </div>
+  </div>
+
+  <div class="qa-item">
+    <div class="qa-head" onclick="toggleQA(this)">
+      <div class="qa-num">02</div>
+      <div style="flex:1">
+        <div class="qa-meta"><span class="badge b-python">Python</span><span class="badge b-hard">hard</span></div>
+        <div class="qa-q">Closure variable capture — what does this print?</div>
+      </div>
+      <div class="qa-chevron">⌄</div>
+    </div>
+    <div class="qa-ans">
+      <div class="code-block">result = []
+for i in range(3):
+    result.append(lambda: i)
+print([f() for f in result])</div>
+      Answer: <code>[2, 2, 2]</code> — all three lambdas capture the variable i by reference, not its value at creation time. By the time they're called, the loop is done and i = 2. Fix: <code>lambda i=i: i</code> captures value at creation.
+    </div>
+  </div>
+
+  <div class="qa-item">
+    <div class="qa-head" onclick="toggleQA(this)">
+      <div class="qa-num">03</div>
+      <div style="flex:1">
+        <div class="qa-meta"><span class="badge b-python">Python</span><span class="badge b-medium">medium</span></div>
+        <div class="qa-q">Class variable shared across instances — what prints?</div>
+      </div>
+      <div class="qa-chevron">⌄</div>
+    </div>
+    <div class="qa-ans">
+      <div class="code-block">class Counter:
+    count = 0
+    def __init__(self):
+        Counter.count += 1
+
+a = Counter()
+b = Counter()
+c = Counter()
+print(Counter.count)
+print(a.count)</div>
+      Answer: <code>3</code> then <code>3</code> — count is a CLASS variable shared across all instances. a.count resolves to the class variable since no instance variable named count exists on a.
+    </div>
+  </div>
+
+  <div class="qa-item">
+    <div class="qa-head" onclick="toggleQA(this)">
+      <div class="qa-num">04</div>
+      <div style="flex:1">
+        <div class="qa-meta"><span class="badge b-python">Python</span><span class="badge b-medium">medium</span></div>
+        <div class="qa-q">Local vs global scope — what prints?</div>
+      </div>
+      <div class="qa-chevron">⌄</div>
+    </div>
+    <div class="qa-ans">
+      <div class="code-block">x = 10
+def change():
+    x = 20
+    print(x)
+change()
+print(x)</div>
+      Answer: <code>20</code> then <code>10</code> — inside change(), x = 20 creates a LOCAL variable. The global x = 10 is untouched. To modify global x, use the <code>global x</code> declaration inside the function.
+    </div>
+  </div>
+
+  <div class="qa-item">
+    <div class="qa-head" onclick="toggleQA(this)">
+      <div class="qa-num">05</div>
+      <div style="flex:1">
+        <div class="qa-meta"><span class="badge b-python">Python</span><span class="badge b-hard">hard</span></div>
+        <div class="qa-q">List concatenation vs mutation in function — what prints?</div>
+      </div>
+      <div class="qa-chevron">⌄</div>
+    </div>
+    <div class="qa-ans">
+      <div class="code-block">def mystery(lst):
+    lst = lst + [99]
+    return lst
+
+original = [1, 2, 3]
+result = mystery(original)
+print(original)
+print(result)</div>
+      Answer: <code>[1, 2, 3]</code> then <code>[1, 2, 3, 99]</code> — lst = lst + [99] creates a NEW list. The original is not mutated. Contrast with <code>lst.append(99)</code> which would mutate the original.
+    </div>
+  </div>
+
+  <div class="divider"></div>
+  <div class="section-eyebrow">Logical reasoning — types to know</div>
+  <div class="two-col">
+    <div class="card"><div class="card-title">Syllogisms</div><div class="card-body">Read every statement twice. "All A are B" + "Some B are C" does NOT mean "Some A are C". The overlap may not include A. Check if conclusion is DEFINITE, not just possible.</div></div>
+    <div class="card"><div class="card-title">Seating arrangement</div><div class="card-body">Draw it. Don't try to hold it in your head. Fix one person first (usually the one with the most constraints), place others around them.</div></div>
+    <div class="card"><div class="card-title">Number series</div><div class="card-body">Check differences first. If differences aren't constant, check second-order differences. Then check ratios. Then check n(n+1), n², alternating patterns.</div></div>
+    <div class="card"><div class="card-title">Coding-decoding</div><div class="card-body">Check each letter shift first (+1, -1, +2). Then check positional values (A=1, B=2...). Then check reversal or alternating shifts.</div></div>
+  </div>
+</div>
+
+<!-- GD -->
+<div id="gd" class="page-section">
+  <div class="section-eyebrow">Round 2</div>
+  <h1 class="section-title">Group Discussion</h1>
+  <p class="section-sub">20 minutes per batch · 8–12 candidates · Structured communication</p>
+
+  <div class="alert alert-purple">Your mock GDs ran unopposed — that's confidence built, not skill built. Real GDs have people cutting in, repeating points, going off-topic, and competing for airtime. Your job is not to fill silence. It's to be the person the room keeps referencing.</div>
+
+  <div class="divider"></div>
+  <div class="section-eyebrow">Opening formula</div>
+  <div class="card">
+    <div class="card-title">Frame + Stand + Invite (first 30 seconds)</div>
+    <div class="card-body">
+      "[Topic] has two dimensions most people conflate — [X] and [Y]. I want to address [X] first: [your point in 2 sentences]. I'd like to hear where others stand on this."<br><br>
+      <strong>Example for "AI replacing jobs":</strong><br>
+      "AI replacing jobs and AI changing jobs are two different conversations that keep getting merged. The real question isn't whether AI takes tasks — it does — but whether the pace of reskilling can match automation. In India's context, I think it can't without structural intervention. Curious where others stand."<br><br>
+      What this does: sets the frame, takes a position, opens the floor — you look like a discussion leader, not a monologuer.
+    </div>
+  </div>
+
+  <div class="divider"></div>
+  <div class="section-eyebrow">Conclusion formula</div>
+  <div class="card">
+    <div class="card-title">Acknowledge both sides + Real tension + Your stand (under 45 seconds)</div>
+    <div class="card-body">
+      "We've heard strong arguments on both sides today. The core tension isn't X vs Y — it's [deeper insight]. My position is [clear stand], because [one reason]. That's where I'd leave it."<br><br>
+      Don't introduce new points. Don't look at the evaluator — address the group. Then stop. The person who concludes cleanly almost always leaves the strongest impression.
+    </div>
+  </div>
+
+  <div class="divider"></div>
+  <div class="section-eyebrow">Combat moves — for real GDs</div>
+  <table class="moves-table">
+    <tr><th>Situation</th><th>Move</th></tr>
+    <tr><td>Someone cuts you off</td><td>"Let me finish this thought —" (calm, firm, no anger). Drop volume slightly, don't shout back.</td></tr>
+    <tr><td>Someone repeats your point as theirs</td><td>"Yes, that's what I was building toward — and the extension of that is..." (you own it back without confrontation)</td></tr>
+    <tr><td>You go blank mid-point</td><td>"Let me put it this way..." — buys 3 seconds to recover. Never say "umm" and trail off.</td></tr>
+    <tr><td>Room is chaotic, everyone talking</td><td>Go quiet for 5 seconds, then speak at normal volume. The contrast cuts through noise better than shouting.</td></tr>
+    <tr><td>Someone makes a weak argument</td><td>"That's one way to look at it — the counterpoint would be..." Never attack the person, attack the argument.</td></tr>
+    <tr><td>You want airtime but can't get in</td><td>Make eye contact with the most agreeable person, nod, then speak. Social permission granted.</td></tr>
+    <tr><td>You've made your points, room is still going</td><td>Shift to synthesis mode: "So far we've established X and Y — the gap we haven't addressed is Z." You're elevating, not repeating.</td></tr>
+    <tr><td>Quiet person acknowledgement</td><td>"[Name], you looked like you had something to add on this." High-risk, high-reward. Do it once max.</td></tr>
+  </table>
+
+  <div class="divider"></div>
+  <div class="section-eyebrow">GD topics — click for prep notes</div>
+  <div class="chip-grid" id="gdChips"></div>
+  <div id="gdDetail"></div>
+</div>
+
+<!-- TECHNICAL -->
+<div id="technical" class="page-section">
+  <div class="section-eyebrow">Round 3</div>
+  <h1 class="section-title">Technical Interview</h1>
+  <p class="section-sub">Projects · OOP · DBMS · Python · Domain knowledge</p>
+
+  <div class="alert alert-amber">Your edge: Ambuli's custom node-based AI pathfinding, EcoQuest, your MERN Bug Reporter — these are real built things. Tridots hires builders. Lead with projects, then fundamentals. State your conclusion first, then walk back the reasoning (your non-linear brain's natural mode).</div>
+
+  <div class="divider"></div>
+  <div class="section-eyebrow">What Tridots probes</div>
+  <div class="two-col">
+    <div class="card"><div class="card-title">Database & ERP</div><div class="card-body">ERPNext is their bread and butter. Expect SQL joins, normalization, transactions, ACID, and basic ERP concepts. Know what a "DocType" is in Frappe.</div></div>
+    <div class="card"><div class="card-title">Python & backend</div><div class="card-body">Frappe is Python-based. OOP in Python, decorators, list comprehensions, REST API concepts, what is a framework and why.</div></div>
+    <div class="card"><div class="card-title">Full stack</div><div class="card-body">What happens when you submit a form, client-server model, REST vs SOAP, JSON, middleware. Basic React/JS if applying for frontend/fullstack.</div></div>
+    <div class="card"><div class="card-title">CS fundamentals</div><div class="card-body">OOP pillars with project examples, ACID properties, OSI model layers, TCP handshake, normalization 1NF–3NF, time complexity.</div></div>
+  </div>
+
+  <div class="divider"></div>
+  <div class="section-eyebrow">10 questions they will definitely ask</div>
+
+  <div class="qa-item">
+    <div class="qa-head" onclick="toggleQA(this)">
+      <div class="qa-num">01</div>
+      <div style="flex:1"><div class="qa-meta"><span class="badge b-projects">Projects</span><span class="badge b-easy">easy</span></div><div class="qa-q">Tell me about your most technically challenging project.</div></div>
+      <div class="qa-chevron">⌄</div>
+    </div>
+    <div class="qa-ans">Lead with Ambuli: "I built a solo indie horror game in Unity 3D with custom node-based AI pathfinding — deliberately avoiding NavMesh to create ritualistic patrol behaviour that feels supernatural, not mechanical." Then cover: sound detection architecture (AmbuliSoundManager, OnSoundHeard()), corpse hiding mechanic, investigation state logic. If they pivot to EcoQuest: "SIH 2025 — led 6 people, React Native + Unity 3D, Top 6 of 500+ nationally." Always mention the technical decision and WHY you made it.</div>
+  </div>
+
+  <div class="qa-item">
+    <div class="qa-head" onclick="toggleQA(this)">
+      <div class="qa-num">02</div>
+      <div style="flex:1"><div class="qa-meta"><span class="badge b-oop">OOP</span><span class="badge b-easy">easy</span></div><div class="qa-q">What is the difference between an abstract class and an interface?</div></div>
+      <div class="qa-chevron">⌄</div>
+    </div>
+    <div class="qa-ans">Abstract class: can have concrete + abstract methods, can have state (fields), single inheritance only. Interface: only method contracts, no state, multiple interfaces per class. Use abstract class for "is-a" with shared code (Animal with name field + abstract sound()). Use interface for "can-do" (Serializable — Dog and File both implement it). In your projects: Unity's MonoBehaviour is effectively an abstract class you extend. Custom enemy behaviours are a candidate for interface design.</div>
+  </div>
+
+  <div class="qa-item">
+    <div class="qa-head" onclick="toggleQA(this)">
+      <div class="qa-num">03</div>
+      <div style="flex:1"><div class="qa-meta"><span class="badge b-dbms">DBMS</span><span class="badge b-easy">easy</span></div><div class="qa-q">Explain ACID properties with a real example.</div></div>
+      <div class="qa-chevron">⌄</div>
+    </div>
+    <div class="qa-ans">Use bank transfer: Atomicity — debit A and credit B must both succeed or both fail. Consistency — total money before = total money after. Isolation — two simultaneous withdrawals from same account don't interfere. Durability — after commit confirmation, the transfer survives even if the server crashes. These are the foundation of why ERP systems like ERPNext can be trusted with financial data.</div>
+  </div>
+
+  <div class="qa-item">
+    <div class="qa-head" onclick="toggleQA(this)">
+      <div class="qa-num">04</div>
+      <div style="flex:1"><div class="qa-meta"><span class="badge b-dbms">DBMS</span><span class="badge b-medium">medium</span></div><div class="qa-q">Explain normalization — 1NF, 2NF, 3NF with examples.</div></div>
+      <div class="qa-chevron">⌄</div>
+    </div>
+    <div class="qa-ans">1NF: atomic values — no arrays. Violation: storing "9876,8765" in PhoneNumber. Fix: one row per phone. 2NF: no partial dependency on composite key. Violation: (StudentID, CourseID) PK but CourseName depends only on CourseID. Fix: separate Course table. 3NF: no transitive dependency. Violation: StudentID → ZipCode → City. Fix: separate Zip table. Each NF removes a specific type of anomaly: insertion, update, or deletion anomaly.</div>
+  </div>
+
+  <div class="qa-item">
+    <div class="qa-head" onclick="toggleQA(this)">
+      <div class="qa-num">05</div>
+      <div style="flex:1"><div class="qa-meta"><span class="badge b-python">Python</span><span class="badge b-medium">medium</span></div><div class="qa-q">What are Python decorators? Give a practical example.</div></div>
+      <div class="qa-chevron">⌄</div>
+    </div>
+    <div class="qa-ans">A decorator wraps a function to add behaviour without modifying it. Syntax: @decorator_name. Example: @timer measures execution time. Real uses: @login_required in web frameworks, @staticmethod, @classmethod, @property, @lru_cache for memoization. Frappe framework uses decorators extensively for route definitions and permission checks — so this is directly relevant to Tridots' stack.</div>
+  </div>
+
+  <div class="qa-item">
+    <div class="qa-head" onclick="toggleQA(this)">
+      <div class="qa-num">06</div>
+      <div style="flex:1"><div class="qa-meta"><span class="badge b-oop">OOP</span><span class="badge b-medium">medium</span></div><div class="qa-q">Explain the SOLID principles with one example each.</div></div>
+      <div class="qa-chevron">⌄</div>
+    </div>
+    <div class="qa-ans">S — Single Responsibility: AmbuliSoundManager only handles sound events, not enemy movement. O — Open/Closed: Enemy base class open for extension (new enemy types) closed for modification. L — Liskov Substitution: any subclass of Enemy works wherever Enemy is expected. I — Interface Segregation: don't force a class to implement methods it doesn't need — split large interfaces. D — Dependency Inversion: game logic depends on IEnemy interface, not AmbuliEnemy concretely — easier to test and swap.</div>
+  </div>
+
+  <div class="qa-item">
+    <div class="qa-head" onclick="toggleQA(this)">
+      <div class="qa-num">07</div>
+      <div style="flex:1"><div class="qa-meta"><span class="badge b-dbms">DBMS</span><span class="badge b-medium">medium</span></div><div class="qa-q">What is indexing? Clustered vs non-clustered?</div></div>
+      <div class="qa-chevron">⌄</div>
+    </div>
+    <div class="qa-ans">Index is a data structure (B-Tree) that speeds up retrieval — like a book index. Without index: O(n) full scan. With index: O(log n). Clustered: physically reorders table rows — only one per table, usually PK. Data IS the index. Non-clustered: separate structure with row pointers — multiple allowed. Trade-off: faster reads, slower writes (index updated on every INSERT/UPDATE/DELETE). In ERPNext with MariaDB, PK indexes are always clustered.</div>
+  </div>
+
+  <div class="qa-item">
+    <div class="qa-head" onclick="toggleQA(this)">
+      <div class="qa-num">08</div>
+      <div style="flex:1"><div class="qa-meta"><span class="badge b-projects">Projects</span><span class="badge b-hard">hard</span></div><div class="qa-q">If you were to scale your Bug Reporting Portal to 10,000 users, what would change?</div></div>
+      <div class="qa-chevron">⌄</div>
+    </div>
+    <div class="qa-ans">Current: single Express server, single MongoDB. At scale: (1) Horizontal scaling — multiple Node instances behind Nginx load balancer. (2) MongoDB replica sets for read scaling. (3) Redis for caching frequent bug lists. (4) S3 or object storage for file attachments. (5) Message queue (Bull/RabbitMQ) for async notification processing. (6) JWT-based stateless auth middleware. Core principle: decouple stateful from stateless, separate read path from write path.</div>
+  </div>
+
+  <div class="qa-item">
+    <div class="qa-head" onclick="toggleQA(this)">
+      <div class="qa-num">09</div>
+      <div style="flex:1"><div class="qa-meta"><span class="badge b-python">Python</span><span class="badge b-hard">hard</span></div><div class="qa-q">What is Python's GIL and why does it matter?</div></div>
+      <div class="qa-chevron">⌄</div>
+    </div>
+    <div class="qa-ans">GIL (Global Interpreter Lock) allows only one thread to execute Python bytecode at a time — even on multi-core processors. Problem: threads can't achieve true parallelism for CPU-bound tasks. Why it exists: simplifies CPython's reference counting garbage collector. Workaround: multiprocessing module (separate processes, each with own GIL) for CPU-bound work. GIL doesn't hurt I/O-bound tasks much — threads release GIL during I/O waits, so web servers handle many requests fine.</div>
+  </div>
+
+  <div class="qa-item">
+    <div class="qa-head" onclick="toggleQA(this)">
+      <div class="qa-num">10</div>
+      <div style="flex:1"><div class="qa-meta"><span class="badge b-dbms">DBMS</span><span class="badge b-hard">hard</span></div><div class="qa-q">What is BCNF and how is it different from 3NF?</div></div>
+      <div class="qa-chevron">⌄</div>
+    </div>
+    <div class="qa-ans">3NF: for every FD X→Y, either X is a superkey OR Y is part of a candidate key. BCNF: X MUST be a superkey — no exception. BCNF is stricter. Example: Table(StudentID, Course, Teacher). FDs: (StudentID,Course)→Teacher and Teacher→Course. In 3NF because Teacher→Course: Course is part of candidate key. BCNF fails because Teacher is not a superkey. Fix: decompose into Teacher(Teacher,Course) and Enrollment(StudentID,Teacher). BCNF may not preserve all FDs — that's the trade-off.</div>
+  </div>
+</div>
+
+<!-- HR -->
+<div id="hr" class="page-section">
+  <div class="section-eyebrow">Round 4</div>
+  <h1 class="section-title">MD / HR Evaluation</h1>
+  <p class="section-sub">Cultural fit · Long-term retention · Deployment guidelines · Final selection</div>
+
+  <div class="alert alert-teal">Your edge: genuine story, village background, SIH Top 6, builder mindset, long-term vision. MDs at mid-size companies respect people who know who they are. Don't shrink. Don't perform. Be Rohanth.</div>
+
+  <div class="divider"></div>
+
+  <div class="qa-item">
+    <div class="qa-head" onclick="toggleQA(this)">
+      <div class="qa-num">01</div>
+      <div style="flex:1"><div class="qa-q">Tell me about yourself.</div></div>
+      <div class="qa-chevron">⌄</div>
+    </div>
+    <div class="qa-ans">"I'm Rohanth, final-year IT student at Kongu Engineering College. I'm a builder at heart — I've built a solo horror game in Unity 3D with custom AI, led a team to Top 6 at Smart India Hackathon nationally out of 500+ teams, and done a Unity internship at DeepSim. I think in systems — I don't just code things, I engineer them. I'm looking to bring that same mindset into a product team that ships real things." Under 90 seconds. Stop there.</div>
+  </div>
+
+  <div class="qa-item">
+    <div class="qa-head" onclick="toggleQA(this)">
+      <div class="qa-num">02</div>
+      <div style="flex:1"><div class="qa-q">Why Tridots Tech?</div></div>
+      <div class="qa-chevron">⌄</div>
+    </div>
+    <div class="qa-ans">"Tridots works at the intersection of ERP, full-stack engineering, and AI automation — which maps directly to what I want to grow in. I've built products end-to-end solo, and I want to work in a team that ships real things for real clients. Tridots isn't just a services company — you build your own products too, like the GO1 suite. That's the environment I want to grow in." Specific. Not generic. Shows you researched them.</div>
+  </div>
+
+  <div class="qa-item">
+    <div class="qa-head" onclick="toggleQA(this)">
+      <div class="qa-num">03</div>
+      <div style="flex:1"><div class="qa-q">Where do you see yourself in 5 years?</div></div>
+      <div class="qa-chevron">⌄</div>
+    </div>
+    <div class="qa-ans">"I want to grow into a role where I can own end-to-end product decisions — from architecture to delivery. Short-term: become deeply proficient in Python and Frappe, contribute to real client implementations, understand the ERP space from the inside. Medium-term: lead a technical sub-team. I'm a long game thinker and I commit fully to wherever I am." Do NOT mention startups here.</div>
+  </div>
+
+  <div class="qa-item">
+    <div class="qa-head" onclick="toggleQA(this)">
+      <div class="qa-num">04</div>
+      <div style="flex:1"><div class="qa-q">What is your biggest weakness?</div></div>
+      <div class="qa-chevron">⌄</div>
+    </div>
+    <div class="qa-ans">"I can get very deep into a problem I find interesting and lose track of time — which means I've had to consciously build systems to stay on schedule. I now use timed work blocks and explicit scope-cuts when a feature risks delaying the whole. It's made me significantly more consistent across projects." True. Self-aware. Shows growth. Not "I work too hard."</div>
+  </div>
+
+  <div class="qa-item">
+    <div class="qa-head" onclick="toggleQA(this)">
+      <div class="qa-num">05</div>
+      <div style="flex:1"><div class="qa-q">Tell me about a time you led a team under pressure.</div></div>
+      <div class="qa-chevron">⌄</div>
+    </div>
+    <div class="qa-ans">"At SIH 2025, I led a 6-person team. Mid-competition we had internal conflicts about priorities, a tight 36-hour window, and incomplete features. I made the call to cut scope, align everyone on one deliverable, and gamify the demo to show what we had with confidence. We placed Top 6 nationally out of 500+ teams." This is your gold story. Deploy it here and in any leadership question.</div>
+  </div>
+
+  <div class="qa-item">
+    <div class="qa-head" onclick="toggleQA(this)">
+      <div class="qa-num">06</div>
+      <div style="flex:1"><div class="qa-q">What are your salary expectations?</div></div>
+      <div class="qa-chevron">⌄</div>
+    </div>
+    <div class="qa-ans">"I'm flexible and trust Tridots to offer a fair package for the role. I'm primarily focused on learning and growth at this stage." If pushed: "Anywhere in the 3.5–5 LPA range would align with my expectations for a fresher role." Tridots fresher packages are typically in this range for Chennai-based roles.</div>
+  </div>
+
+  <div class="divider"></div>
+  <div class="section-eyebrow">Things NOT to do in MD/HR</div>
+  <div class="card">
+    <div class="card-body">
+      — Don't say "I'm a fast learner" without proof. Attach evidence.<br>
+      — Don't badmouth your college, professors, or previous experiences.<br>
+      — Don't bury the SIH Top 6. It belongs in the first 2 minutes.<br>
+      — Don't ramble. Answer → one example → stop. Let them ask the follow-up.<br>
+      — Don't mention startups or entrepreneurship plans in this round.<br>
+      — Don't ask about salary first. Let them bring it up.
+    </div>
+  </div>
+</div>
+
+<!-- QUESTION BANKS -->
+<div id="q-projects" class="page-section">
+  <div class="section-eyebrow">Question Bank</div>
+  <h1 class="section-title">Projects</h1>
+  <p class="section-sub">9 questions · Easy to Hard</p>
+  <div id="qb-projects"></div>
+</div>
+
+<div id="q-oop" class="page-section">
+  <div class="section-eyebrow">Question Bank</div>
+  <h1 class="section-title">OOP</h1>
+  <p class="section-sub">9 questions · Easy to Hard</p>
+  <div id="qb-oop"></div>
+</div>
+
+<div id="q-dbms" class="page-section">
+  <div class="section-eyebrow">Question Bank</div>
+  <h1 class="section-title">DBMS</h1>
+  <p class="section-sub">12 questions · Easy to Hard</p>
+  <div id="qb-dbms"></div>
+</div>
+
+<div id="q-python" class="page-section">
+  <div class="section-eyebrow">Question Bank</div>
+  <h1 class="section-title">Python</h1>
+  <p class="section-sub">10 questions · Easy to Hard</p>
+  <div id="qb-python"></div>
+</div>
+
+<div id="q-cn" class="page-section">
+  <div class="section-eyebrow">Question Bank</div>
+  <h1 class="section-title">Computer Networks</h1>
+  <p class="section-sub">16 questions · Easy to Hard</p>
+  <div id="qb-cn"></div>
+</div>
+
+<div id="q-ds" class="page-section">
+  <div class="section-eyebrow">Question Bank</div>
+  <h1 class="section-title">Data Structures</h1>
+  <p class="section-sub">14 questions · Easy to Hard</p>
+  <div id="qb-ds"></div>
+</div>
+
+<!-- ALL QUESTIONS -->
+<div id="all-questions" class="page-section">
+  <div class="section-eyebrow">All Questions</div>
+  <h1 class="section-title">Search everything</h1>
+  <p class="section-sub">70+ questions across all topics</p>
+  <div class="filter-bar" id="allFilter">
+    <button class="filter-btn active" onclick="filterAll('all',this)">All</button>
+    <button class="filter-btn" onclick="filterAll('projects',this)">Projects</button>
+    <button class="filter-btn" onclick="filterAll('oop',this)">OOP</button>
+    <button class="filter-btn" onclick="filterAll('dbms',this)">DBMS</button>
+    <button class="filter-btn" onclick="filterAll('python',this)">Python</button>
+    <button class="filter-btn" onclick="filterAll('cn',this)">Networks</button>
+    <button class="filter-btn" onclick="filterAll('ds',this)">Data Structures</button>
+  </div>
+  <div class="search-wrap"><input type="text" id="allSearch" placeholder="Search questions and answers..." oninput="renderAll()"/></div>
+  <div id="allStats" class="stats-row"></div>
+  <div id="allList"></div>
+</div>
+
+</main>
+
+<script>
+// All question data
+const QUESTIONS = [
+  // PROJECTS
+  {cat:"projects",diff:"easy",q:"Tell me about yourself and your projects in 90 seconds.",a:"Structure: Name → college → 2-3 projects in one line each → headline achievement. 'I'm Rohanth, final-year IT at Kongu Engineering College. I've built a solo horror game in Unity 3D with custom AI pathfinding, led a team to Top 6 at Smart India Hackathon nationally, and built full-stack apps using MERN. I think like a builder — I engineer systems.' Stop at 90 seconds."},
+  {cat:"projects",diff:"easy",q:"What is Ambuli — The Dread? Explain it technically.",a:"Solo Unity 3D survival horror game inspired by Tamil folk mythology. Key decisions: (1) Custom node-based AI pathfinding — avoided NavMesh to give ritualistic, non-optimal patrol behaviour. (2) AmbuliSoundManager with OnSoundHeard() — enemy reacts to sound events, triggers investigation state. (3) Corpse hiding mechanic — entity behaviour branches based on whether it witnessed the player enter. (4) Volumetric fog + time cycle system. Lead with the DELIBERATE design decisions, not just the feature list."},
+  {cat:"projects",diff:"easy",q:"What is EcoQuest and what was your role?",a:"SIH 2025 project I led. 6-person team, React Native + Unity 3D, gamified environmental awareness platform. TEAM LEADER. Result: Top 6 nationally of 500+. At ~35% completion at demo time — made the call to cut scope, gamify the demo, present confidently. That pivot is what got us Top 6."},
+  {cat:"projects",diff:"easy",q:"What tech stack does your Bug Reporting Portal use?",a:"MERN — MongoDB, Express.js, React, Node.js. Built solo. Flow: React form → Express REST API → MongoDB. Key features: bug submission, status tracking, dashboard. If asked deeper: REST API design, MongoDB schema for Bug documents with status ENUM, Express middleware for validation."},
+  {cat:"projects",diff:"medium",q:"Why did you avoid NavMesh in Ambuli and build custom pathfinding?",a:"NavMesh gives optimal shortest-path movement — makes enemies feel mechanical and predictable. For Ambuli, the entity needed to feel like a spirit following ritual routes, not an AI solving pathfinding. Custom node-based pathfinding let me define patrol nodes manually, add weighted transitions, and create behaviour that feels intentional and unknowable. Deliberate design decision rooted in game feel, not a technical limitation."},
+  {cat:"projects",diff:"medium",q:"How does the sound detection system in Ambuli work architecturally?",a:"AmbuliSoundManager is a singleton acting as the central event bus for sound events. When the player performs a sound-generating action, it calls OnSoundHeard() with position and intensity. Entity has SoundDetectionRadius — if event position is within range and intensity exceeds threshold, it transitions from patrol to investigation state and moves toward the sound origin. Event-driven architecture — decoupled from entity logic."},
+  {cat:"projects",diff:"medium",q:"What challenges did you face during SIH and how did you handle them?",a:"Two challenges: (1) Internal team conflicts mid-competition. Made a unilateral call: cut non-essential features, align everyone on one deliverable. Conflict resolved through clarity, not compromise. (2) 35% completion at demo time. Decision: gamify the demo — show what works, present the vision confidently. That pivot got us Top 6. Lesson: under pressure, clarity of decision matters more than completeness of product."},
+  {cat:"projects",diff:"hard",q:"If you were to scale your Bug Reporting Portal to 10,000 users, what would you change architecturally?",a:"Current: single Express server, single MongoDB. At scale: (1) Horizontal scaling — multiple Node instances behind Nginx load balancer. (2) MongoDB replica sets for read scaling. (3) Redis for caching. (4) S3 for file attachments. (5) Message queue for async notifications. (6) JWT-based stateless auth. Core principle: decouple stateful from stateless, separate read from write paths."},
+  {cat:"projects",diff:"hard",q:"How would you redesign Ambuli's AI for multiplayer — two players, one entity?",a:"Entity needs threat assessment per player — assign threat scores based on proximity, sound, visibility. Shared investigation queue — entity prioritises highest threat. Sound events carry playerID tag. Corpse mechanic tracks witness state per player. For networking: authoritative server model — entity logic server-side, clients receive state updates. Prevents cheating, keeps AI deterministic."},
+
+  // OOP
+  {cat:"oop",diff:"easy",q:"What are the four pillars of OOP? Give one example each from your projects.",a:"Encapsulation — AmbuliSoundManager wraps all sound logic, external code only calls OnSoundHeard(). Abstraction — Unity MonoBehaviour hides the engine loop. Inheritance — Enemy base class with patrol/investigate/chase states; Ambuli inherits and overrides. Polymorphism — different enemy types override the same Detect() method differently — one uses sight, one uses sound."},
+  {cat:"oop",diff:"easy",q:"What is the difference between an abstract class and an interface? When would you use each?",a:"Abstract class: concrete + abstract methods, can have state, single inheritance. Interface: method contracts only, no state, multiple per class. Use abstract class for 'is-a' with shared code (Animal with name + abstract sound()). Use interface for 'can-do' (Serializable — Dog and File both implement it). Rule: 'is-a' → abstract class. 'can-do' → interface."},
+  {cat:"oop",diff:"easy",q:"Explain method overloading vs method overriding with examples.",a:"Overloading: same name, different parameters, compile time (static polymorphism). print(int x) and print(String s). Overriding: child redefines parent's method with same signature, runtime (dynamic polymorphism). Dog.speak() overrides Animal.speak(). Animal a = new Dog(); a.speak() → calls Dog's version. Overloading = compile time. Overriding = runtime."},
+  {cat:"oop",diff:"easy",q:"What is a constructor? Can a constructor be private? Why?",a:"Constructor initialises an object — same name as class, no return type. Yes, private constructor is valid. Why: to prevent direct instantiation. Classic use: Singleton pattern — private constructor + static getInstance() method. Also used in Factory patterns to control object creation."},
+  {cat:"oop",diff:"medium",q:"What is the difference between composition and inheritance? Which is preferred?",a:"Inheritance: 'is-a' — Dog IS Animal. Tight coupling, parent changes can break child. Composition: 'has-a' — Car HAS Engine. Loose coupling, swap Engine without changing Car. Prefer composition (GoF principle) — more flexible, avoids deep hierarchies, allows runtime behaviour change. Instead of LoggingDatabase extends Database: class Database { Logger logger; } — logger can be swapped or mocked."},
+  {cat:"oop",diff:"medium",q:"What is the Singleton pattern? Write the logic for a thread-safe Singleton.",a:"Singleton ensures only one instance exists. Thread-safe via double-checked locking: private static volatile Singleton instance; getInstance() checks if null, then synchronized block checks again, then creates. volatile prevents instruction reordering. Double-check avoids sync overhead after first creation. Real use: database connection pools, config managers, logging. AmbuliSoundManager in Unity is a Singleton."},
+  {cat:"oop",diff:"medium",q:"Explain the SOLID principles with one example each.",a:"S — Single Responsibility: AmbuliSoundManager only handles sound events. O — Open/Closed: Enemy base class open for extension, closed for modification. L — Liskov Substitution: any Enemy subclass works wherever Enemy is expected. I — Interface Segregation: don't force a class to implement unused methods. D — Dependency Inversion: game logic depends on IEnemy interface, not AmbuliEnemy concretely."},
+  {cat:"oop",diff:"hard",q:"What is the difference between early binding and late binding? How does Java implement late binding?",a:"Early binding: method resolved at compile time — overloading, static/final/private methods. Late binding: resolved at runtime based on actual object type — method overriding. Java implements via virtual method dispatch: JVM maintains a vtable per class. Animal ref = new Dog(); ref.speak() → JVM looks up Dog's vtable at runtime, dispatches to Dog.speak(). This is the mechanism behind runtime polymorphism."},
+  {cat:"oop",diff:"hard",q:"What is the diamond problem? How does Java solve it?",a:"Diamond: class D inherits B and C, both inherit A. If A.foo() is overridden by both B and C, which version does D get? Java disallows multiple class inheritance. But Java 8+ default methods in interfaces reintroduce it. Solution: if a class implements two interfaces with the same default method, it MUST override explicitly — compiler forces the programmer to resolve the ambiguity."},
+
+  // DBMS
+  {cat:"dbms",diff:"easy",q:"What is the difference between primary key, foreign key, and unique key?",a:"Primary key: uniquely identifies each row, NOT NULL, one per table. Foreign key: references PK of another table, enforces referential integrity, can be NULL. Unique key: values distinct, allows one NULL, multiple per table. Example: Orders — OrderID is PK, CustomerID is FK referencing Customers, Email is unique key."},
+  {cat:"dbms",diff:"easy",q:"What are the ACID properties? Explain each with a banking example.",a:"Atomicity: transfer ₹500 — debit A and credit B must both succeed or both fail. Consistency: total money before = total money after. Isolation: two simultaneous withdrawals don't see each other's intermediate state. Durability: committed transfer survives even if server crashes. Foundation of why ERP systems can be trusted with financial data."},
+  {cat:"dbms",diff:"easy",q:"What is normalization? Explain 1NF, 2NF, 3NF.",a:"1NF: atomic values. Violation: '9876,8765' in PhoneNumber. Fix: one row per number. 2NF: no partial dependency. Violation: (StudentID,CourseID) PK but CourseName depends only on CourseID. Fix: separate Course table. 3NF: no transitive dependency. Violation: StudentID→ZipCode→City. Fix: separate Zip table."},
+  {cat:"dbms",diff:"easy",q:"What is the difference between WHERE and HAVING?",a:"WHERE filters rows before grouping — no aggregates. HAVING filters after GROUP BY — can use COUNT(), SUM() etc. SELECT department, COUNT(*) FROM employees WHERE salary > 30000 GROUP BY department HAVING COUNT(*) > 5. WHERE removes low-salary rows first, then GROUP BY, then HAVING removes small departments."},
+  {cat:"dbms",diff:"easy",q:"What are the types of SQL JOINs?",a:"INNER: only matching rows from both tables. LEFT: all left rows + matches from right (NULL if no match). RIGHT: all right rows + matches from left. FULL OUTER: all rows from both, NULLs where no match. CROSS: cartesian product. SELF: table joined with itself. Example: Customers LEFT JOIN Orders gives all customers even those with no orders."},
+  {cat:"dbms",diff:"medium",q:"Explain transaction isolation levels and anomalies they prevent.",a:"Read Uncommitted: dirty reads possible. Read Committed: no dirty reads, non-repeatable reads possible. Repeatable Read: no non-repeatable reads, phantom reads possible. Serializable: fully isolated, no anomalies, lowest concurrency. MySQL InnoDB default: Repeatable Read. PostgreSQL default: Read Committed."},
+  {cat:"dbms",diff:"medium",q:"What is a deadlock? How is it detected and resolved?",a:"Deadlock: two+ transactions wait for each other's locks — circular dependency. Detection: wait-for graph — cycle = deadlock. Resolution: timeout (abort waiting transaction), victim selection (abort cheapest transaction), lock ordering (always acquire locks in same global order). Most RDBMS auto-detect and roll back one transaction."},
+  {cat:"dbms",diff:"medium",q:"What is indexing? Clustered vs non-clustered?",a:"Index speeds up retrieval — B-Tree structure, O(log n) vs O(n) full scan. Clustered: physically reorders rows, one per table (usually PK), data IS the index. Non-clustered: separate structure with row pointers, multiple allowed. Trade-off: faster reads, slower writes. In ERPNext/MariaDB, PK indexes are always clustered."},
+  {cat:"dbms",diff:"medium",q:"What is a view? Difference between view and materialized view?",a:"View: virtual table — saved query, no data stored, runs on access. Always current, can be slow. Materialized view: stores query RESULT physically. Much faster, but goes stale — needs refreshing. Use materialized views for heavy aggregations in reporting where slight staleness is acceptable."},
+  {cat:"dbms",diff:"medium",q:"Design a schema for a Bug Reporting Portal.",a:"Users(UserID PK, Name, Email UNIQUE, Role), Projects(ProjectID PK, Name, CreatedBy FK), Bugs(BugID PK, Title, Description, Status ENUM, Priority ENUM, ReportedBy FK, AssignedTo FK, ProjectID FK, CreatedAt), Comments(CommentID PK, BugID FK, UserID FK, Content, CreatedAt). ENUM enforces valid states. FKs enforce referential integrity."},
+  {cat:"dbms",diff:"hard",q:"What is BCNF? How is it different from 3NF?",a:"3NF: for FD X→Y, either X is superkey OR Y is part of candidate key. BCNF: X MUST be superkey — no exception. Stricter. Example: (StudentID, Course, Teacher). FDs: (StudentID,Course)→Teacher and Teacher→Course. 3NF holds — Course is part of candidate key. BCNF fails — Teacher is not superkey. Fix: decompose. BCNF may not preserve all FDs."},
+  {cat:"dbms",diff:"hard",q:"Difference between optimistic and pessimistic concurrency control?",a:"Pessimistic: assumes conflicts will happen — lock data before read/write. Others wait. Deadlock risk, lower throughput. Optimistic: assumes conflicts are rare — no locks during transaction. At commit: check for conflict via version/timestamp. If conflict: rollback and retry. PostgreSQL's MVCC is optimistic — readers never block writers."},
+  {cat:"dbms",diff:"hard",q:"How would you optimise a slow SQL query?",a:"1. EXPLAIN to see execution plan — look for full table scan (type=ALL). 2. Add index on WHERE, JOIN ON, ORDER BY columns. 3. Avoid SELECT * — fetch only needed columns. 4. Fix N+1 problem — use JOINs instead of loops. 5. Avoid functions on indexed columns in WHERE (kills index: WHERE YEAR(date)=2025 vs WHERE date BETWEEN ...)."},
+
+  // PYTHON
+  {cat:"python",diff:"easy",q:"What is the difference between a list and a tuple?",a:"List: mutable, [], slightly slower, more memory. Tuple: immutable, (), faster, less memory, hashable (can be dict key). Use list for modifiable collections. Use tuple for fixed data (coordinates, RGB, multiple return values). Immutability makes tuples safe for data that shouldn't change."},
+  {cat:"python",diff:"easy",q:"What is the difference between == and 'is' in Python?",a:"== compares values. 'is' compares identity (same object in memory). a=[1,2,3]; b=[1,2,3]. a==b → True. a is b → False. But a=b; a is b → True. Never use 'is' to compare values. Use it only: x is None, x is True, x is False."},
+  {cat:"python",diff:"easy",q:"What are Python decorators? Give a practical example.",a:"Decorator wraps a function to add behaviour without modifying it. Syntax: @decorator_name. Example: @timer measures execution time. Real uses: @login_required, @staticmethod, @classmethod, @property, @lru_cache. Frappe uses decorators for route definitions and permission checks — directly relevant to Tridots' stack."},
+  {cat:"python",diff:"easy",q:"What is the difference between *args and **kwargs?",a:"*args: extra positional arguments → tuple. func(1,2,3,4) with def func(a,*args): a=1, args=(2,3,4). **kwargs: extra keyword arguments → dict. func(name='Rohanth',age=19) with def func(**kwargs): kwargs={'name':'Rohanth','age':19}. Common in Frappe for flexible function signatures."},
+  {cat:"python",diff:"medium",q:"What is a Python generator? How is it different from a regular function?",a:"Generator uses 'yield' instead of 'return' — produces values one at a time, pausing between yields. Lazy — doesn't compute all values upfront. Memory efficient for large sequences. Regular function computes all at once and returns (all in memory). for x in count_up(1000000) — only one integer in memory at a time. Useful for processing large DB result sets in Frappe."},
+  {cat:"python",diff:"medium",q:"Explain Python's GIL. What problem does it cause?",a:"GIL (Global Interpreter Lock): only one thread executes Python bytecode at a time — even on multi-core. Problem: threads can't achieve true parallelism for CPU-bound tasks. Why: simplifies CPython reference counting GC. Workaround: multiprocessing (separate processes, each with own GIL). GIL doesn't hurt I/O-bound tasks — threads release GIL during I/O waits."},
+  {cat:"python",diff:"medium",q:"What is the difference between deep copy and shallow copy?",a:"Shallow: copies outer object, inner objects are still references. b=a.copy() — changing nested list in b also changes a. Deep: recursively copies all nested objects — fully independent. copy.deepcopy(a). The list reference trap (b=a) is even shallower — not even a copy, just another reference."},
+  {cat:"python",diff:"medium",q:"What are list comprehensions? How do they compare to map/filter?",a:"[expression for item in iterable if condition]. [x**2 for x in range(10) if x%2==0]. Cleaner and more Pythonic. map(func, iterable): applies function, lazy. filter(func, iterable): keeps where func returns True, lazy. Comprehension preferred for readability. Dict comprehension: {k:v for k,v in items}. Generator expression: (x**2 for x in range(10)) — lazy, memory efficient."},
+  {cat:"python",diff:"hard",q:"What is Python's MRO? How does it work with multiple inheritance?",a:"MRO defines the order Python searches for a method. Uses C3 Linearization algorithm. Check with ClassName.__mro__. Example: class D(B,C), B(A), C(A). D.__mro__ = (D,B,C,A). D().hello() → searches D → B → C (found!) → returns C's version. Algorithm: local class first, left-to-right for multiple bases, parents before grandparents."},
+  {cat:"python",diff:"hard",q:"Explain Python's memory management and garbage collection.",a:"Reference counting: every object has a count. When count = 0, memory freed immediately. Problem: circular references (A refs B, B refs A — counts never reach 0). Solution: cyclic GC runs periodically, detects cycles using mark-and-sweep on three generations. Objects surviving GC cycles promoted to older generations (collected less often). Optimization: Python interns small ints (-5 to 256) and short strings."},
+
+  // COMPUTER NETWORKS
+  {cat:"cn",diff:"easy",q:"What is the OSI model? Name all 7 layers.",a:"Physical (bits), Data Link (MAC/framing), Network (IP/routing), Transport (TCP/UDP), Session (connections), Presentation (encryption/encoding), Application (HTTP/FTP/DNS). Mnemonic: 'Please Do Not Throw Sausage Pizza Away'."},
+  {cat:"cn",diff:"easy",q:"What is the difference between TCP and UDP?",a:"TCP: connection-oriented, 3-way handshake, reliable, ordered, flow-controlled — HTTP, FTP, email. UDP: connectionless, faster, no delivery guarantee — DNS, video streaming, VoIP. TCP higher overhead; UDP lower latency."},
+  {cat:"cn",diff:"easy",q:"What is an IP address? Difference between IPv4 and IPv6?",a:"IP address uniquely identifies a device on a network. IPv4: 32-bit, ~4.3 billion addresses (192.168.1.1). IPv6: 128-bit, ~340 undecillion addresses (2001:0db8::1). IPv6 has built-in IPSec, better multicast, no need for NAT."},
+  {cat:"cn",diff:"easy",q:"What is DNS and how does it work?",a:"DNS translates domain names to IP addresses. Process: browser checks cache → recursive resolver → root nameserver → TLD nameserver (.com) → authoritative nameserver → returns IP. Uses UDP port 53."},
+  {cat:"cn",diff:"easy",q:"What is the difference between a hub, switch, and router?",a:"Hub: Layer 1, broadcasts to all ports. Switch: Layer 2, uses MAC table to forward to specific port. Router: Layer 3, routes packets between different networks using IP addresses."},
+  {cat:"cn",diff:"easy",q:"What is the difference between unicast, multicast, and broadcast?",a:"Unicast: one sender to one receiver. Multicast: one sender to a specific group. Broadcast: one sender to all devices on the network. Broadcast is subnet-limited; multicast is more efficient for group communication."},
+  {cat:"cn",diff:"medium",q:"Explain the TCP 3-way handshake.",a:"1. Client sends SYN (seq=x). 2. Server replies SYN-ACK (seq=y, ack=x+1). 3. Client sends ACK (ack=y+1). Connection established. For closing: 4-way FIN handshake (FIN → ACK → FIN → ACK)."},
+  {cat:"cn",diff:"medium",q:"What is subnetting? What is a subnet mask?",a:"Subnetting divides a large network into smaller sub-networks. Subnet mask (e.g. 255.255.255.0 or /24) tells which bits are network vs host. /24 = 24 bits for network → 256 addresses (254 usable). CIDR notation."},
+  {cat:"cn",diff:"medium",q:"What is the difference between HTTP and HTTPS?",a:"HTTP (port 80): data in plaintext. HTTPS (port 443): data encrypted using TLS/SSL. HTTPS provides confidentiality, integrity, authentication via digital certificates."},
+  {cat:"cn",diff:"medium",q:"What is NAT?",a:"NAT (Network Address Translation) maps private IP addresses to a single public IP. Multiple devices on a LAN share one public IP. Types: Static (1:1), Dynamic (pool), PAT/Masquerade (many:1 using different ports). Conserves IPv4 addresses."},
+  {cat:"cn",diff:"medium",q:"What is DHCP and how does it work?",a:"DHCP auto-assigns IP addresses. DORA process: Discover (client broadcasts) → Offer (server offers IP) → Request (client accepts) → Acknowledge (server confirms). UDP ports 67 (server) and 68 (client)."},
+  {cat:"cn",diff:"medium",q:"What is a socket? How is a connection established?",a:"Socket = endpoint for communication, identified by IP + port. TCP: server creates socket → binds to port → listens → client creates socket → connects (3-way handshake) → both send/receive data."},
+  {cat:"cn",diff:"hard",q:"Explain congestion control in TCP.",a:"1. Slow Start: begin cwnd=1, double each RTT. 2. Congestion Avoidance: increase cwnd linearly after threshold. 3. Fast Retransmit: retransmit after 3 duplicate ACKs. 4. Fast Recovery: reduce cwnd by half (not to 1) on loss. Algorithms: Tahoe, Reno, CUBIC (Linux default)."},
+  {cat:"cn",diff:"hard",q:"What is the difference between routing protocols — RIP, OSPF, BGP?",a:"RIP: Distance Vector, max 15 hops, slow convergence. OSPF: Link-State, uses Dijkstra, fast convergence, within an AS (IGP). BGP: Path Vector, between ASes on the internet (EGP), policy-based routing, highly scalable."},
+  {cat:"cn",diff:"hard",q:"What happens when you type a URL in a browser?",a:"1. DNS lookup for IP. 2. TCP 3-way handshake. 3. TLS handshake (if HTTPS). 4. Browser sends HTTP GET. 5. Server processes and sends HTTP response. 6. Browser parses HTML, fetches CSS/JS/images. 7. Browser renders page."},
+  {cat:"cn",diff:"hard",q:"What are the differences between ARP and RARP?",a:"ARP: maps known IP → MAC address (used when sending packet on LAN). RARP: maps known MAC → IP (legacy, used by diskless workstations to get IP at boot)."},
+
+  // DATA STRUCTURES
+  {cat:"ds",diff:"easy",q:"What is the difference between an array and a linked list?",a:"Array: contiguous memory, O(1) access by index, O(n) insert/delete (shifting). Cache-friendly. Linked List: non-contiguous nodes with pointers, O(n) access, O(1) insert/delete at known node. Flexible size."},
+  {cat:"ds",diff:"easy",q:"What is a stack? Operations and real-world uses?",a:"LIFO structure. push (add), pop (remove), peek (top) — all O(1). Uses: function call stack, undo/redo, expression parsing, backtracking algorithms, DFS."},
+  {cat:"ds",diff:"easy",q:"What is a queue? Difference between queue and deque?",a:"FIFO structure. Enqueue (rear), dequeue (front) — O(1). Uses: BFS, task scheduling, printer queues. Deque (Double-Ended Queue): insert/delete at both ends. Priority Queue: dequeues by priority."},
+  {cat:"ds",diff:"easy",q:"What is the difference between BFS and DFS?",a:"BFS: level by level, uses queue, finds shortest path in unweighted graphs, O(V+E). DFS: depth-first, uses stack/recursion, good for cycle detection, topological sort, O(V+E)."},
+  {cat:"ds",diff:"easy",q:"What is the difference between a tree and a graph?",a:"Tree: connected, acyclic graph, N nodes and N-1 edges. Every tree is a graph but not vice versa. Trees have a root; graphs can be directed/undirected, cyclic/acyclic, connected/disconnected."},
+  {cat:"ds",diff:"medium",q:"What is a hash table? How are collisions handled?",a:"Maps keys to values via hash function. Collision handling: Chaining (each bucket holds a linked list) or Open Addressing (linear probing, quadratic probing, double hashing). Avg O(1) for insert/search; worst O(n) on many collisions."},
+  {cat:"ds",diff:"medium",q:"Explain the time complexities of common BST operations.",a:"Balanced BST: Search, Insert, Delete all O(log n). Skewed BST (worst case, sorted input): O(n). Self-balancing trees (AVL, Red-Black) guarantee O(log n). Traversals (inorder, preorder, postorder): always O(n)."},
+  {cat:"ds",diff:"medium",q:"What is a heap? Min-heap vs max-heap?",a:"Heap: complete binary tree satisfying heap property. Min-Heap: parent ≤ children (root is minimum). Max-Heap: parent ≥ children (root is maximum). Used in priority queues. Heapify: O(n). Insert/delete: O(log n). Access min/max: O(1)."},
+  {cat:"ds",diff:"medium",q:"What is a graph? Adjacency matrix vs adjacency list?",a:"Graph: set of vertices (V) and edges (E). Adjacency Matrix: 2D array, O(1) edge check, O(V²) space — good for dense graphs. Adjacency List: array of lists, O(degree) edge check, O(V+E) space — good for sparse graphs."},
+  {cat:"ds",diff:"medium",q:"What is dynamic programming? Give an example.",a:"DP solves problems by breaking into overlapping subproblems and storing results (memoization/tabulation). Example: Fibonacci — naively O(2^n), with DP O(n). Classic problems: LCS, 0/1 Knapsack, Bellman-Ford, Coin Change."},
+  {cat:"ds",diff:"medium",q:"What is amortized time complexity? Give an example.",a:"Amortized analysis averages cost over a sequence of operations. Example: Dynamic array — each append is usually O(1), but when array doubles it takes O(n). Since doubling happens rarely, amortized cost per append is O(1)."},
+  {cat:"ds",diff:"hard",q:"What is a trie (prefix tree) and when do you use it?",a:"Trie: tree where each node represents a character. Path from root = string prefix. Operations: O(m) where m = key length. Uses: autocomplete, spell check, IP routing (longest prefix match). Compressed tries (Patricia tries) save space."},
+  {cat:"ds",diff:"hard",q:"Explain Dijkstra's algorithm.",a:"Greedy shortest path in weighted graph (no negative weights). Uses min-heap/priority queue. Start from source (dist=0), explore neighbors, update distance if shorter, mark visited. Time: O((V+E) log V) with binary heap. For negative weights: Bellman-Ford O(VE)."},
+  {cat:"ds",diff:"hard",q:"What is the difference between quicksort and mergesort?",a:"Mergesort: always O(n log n), stable, O(n) extra space — preferred for linked lists. Quicksort: avg O(n log n), worst O(n²) (sorted input, bad pivot), in-place, not stable. Quicksort faster in practice due to cache performance."},
+];
+
+// GD Topics
+const GD_TOPICS = [
+  {label:"AI replacing jobs", notes:"Open: 'AI replacing jobs and AI changing jobs are two different conversations.' Talk about reskilling vs automation pace. India-specific: structural intervention needed. Counter: low-skill repetitive roles genuinely at risk. Conclude: adaptability is the real skill."},
+  {label:"Digital transformation in SMEs", notes:"Tridots' core business. Open: 'SMEs = 30% of India's GDP but digital adoption under 30%.' ERPNext makes enterprise tools accessible. Barriers: cost, training, mindset. Strong topic for you — you understand the Tridots business."},
+  {label:"Work from home vs office", notes:"Tridots is on-site. Balance both sides. 'Remote works for independent work; on-site wins for team problem-solving and client work.' Don't take an extreme position."},
+  {label:"Is coding a must for every engineer?", notes:"Open: 'Not every engineer needs to code, but every engineer needs computational thinking.' Mechanical, civil engineers benefit from automation scripts. Domain expertise still leads."},
+  {label:"Open source vs proprietary software", notes:"Frappe and ERPNext are open-source — mention this. 'Open source democratizes enterprise software.' Counter: security, support, accountability gaps. Tridots = open-source company, so this is relevant."},
+  {label:"Cloud computing — future of business", notes:"Framework: cost efficiency, scalability, security trade-offs. Mention Frappe Cloud. 'For a company like Tridots, cloud enables global client delivery without on-site infrastructure.'"},
+  {label:"ERP systems for small businesses", notes:"This is Tridots' actual pitch. 'Traditionally ERP was for large enterprises — ERPNext changed that.' SME pain points: scattered data, manual processes. ERP solves: single source of truth, automation, reporting."},
+  {label:"India's IT sector growth", notes:"India IT sector $250B+. Tier-2 city growth, product companies vs services shift. 'The next wave is product companies built in India for the world.' Tridots is an example."},
+  {label:"Sustainability in tech", notes:"Connect to genuine values. 'Data centers consume massive energy — green cloud matters.' Be specific, not generic. Don't performatively greenwash."},
+  {label:"Startups vs MNCs for freshers", notes:"MNC: stability, structure, brand. Startup: ownership, breadth, speed. 'The right answer depends on what you want to learn in years 1–3.' Tridots: mid-size, fast-moving — best of both."},
+  {label:"Data privacy in the digital age", notes:"GDPR, India's DPDP Act 2023. ERP systems store sensitive business data. 'Data is the new liability, not just the new oil.' Tridots handles client business data — directly relevant."},
+  {label:"Ethics in AI", notes:"Bias in training data, black-box decisions, accountability. 'Ethical AI needs diverse teams, explainable models, regulatory frameworks.' Mention India's AI policy. Ground it in a real example."},
+];
+
+// Page navigation
+function showPage(id) {
+  document.querySelectorAll('.page-section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  const links = document.querySelectorAll('.nav-link');
+  links.forEach(l => { if(l.getAttribute('onclick') && l.getAttribute('onclick').includes("'"+id+"'")) l.classList.add('active'); });
+
+  // Render question banks on first visit
+  if(id.startsWith('q-')) renderQBank(id.replace('q-',''));
+  if(id === 'all-questions') renderAll();
+  if(id === 'gd') renderGD();
+}
+
+// QA toggle
+function toggleQA(head) {
+  const item = head.parentElement;
+  item.classList.toggle('open');
+}
+
+// Render question bank
+function renderQBank(cat) {
+  const el = document.getElementById('qb-'+cat);
+  if(!el || el.innerHTML) return;
+  const qs = QUESTIONS.filter(q => q.cat === cat);
+  const diffs = ['easy','medium','hard'];
+  let html = '';
+  diffs.forEach(d => {
+    const sub = qs.filter(q => q.diff === d);
+    if(!sub.length) return;
+    html += `<div style="font-size:11px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--dim);margin:1.5rem 0 8px;">${d.charAt(0).toUpperCase()+d.slice(1)}</div>`;
+    sub.forEach((q, i) => {
+      html += `<div class="qa-item">
+        <div class="qa-head" onclick="toggleQA(this)">
+          <div class="qa-num">${String(i+1).padStart(2,'0')}</div>
+          <div style="flex:1">
+            <div class="qa-meta"><span class="badge b-${cat}">${catLabel(cat)}</span><span class="badge b-${d}">${d}</span></div>
+            <div class="qa-q">${q.q}</div>
+          </div>
+          <div class="qa-chevron">⌄</div>
+        </div>
+        <div class="qa-ans">${q.a}</div>
+      </div>`;
+    });
+  });
+  el.innerHTML = html;
+}
+
+function catLabel(c) { return {projects:'Projects',oop:'OOP',dbms:'DBMS',python:'Python',cn:'Networks',ds:'Data Structures'}[c]; }
+
+// All questions
+let allFilter = 'all';
+function filterAll(f, btn) {
+  allFilter = f;
+  document.querySelectorAll('#allFilter .filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderAll();
+}
+
+function renderAll() {
+  const search = document.getElementById('allSearch').value.toLowerCase().trim();
+  const list = QUESTIONS.filter(q => {
+    const cm = allFilter === 'all' || q.cat === allFilter;
+    const sm = !search || q.q.toLowerCase().includes(search) || q.a.toLowerCase().includes(search);
+    return cm && sm;
+  });
+
+  document.getElementById('allStats').innerHTML = `
+    <div class="stat"><div class="stat-val">${list.length}</div><div class="stat-label">Questions</div></div>
+    <div class="stat"><div class="stat-val">${list.filter(q=>q.diff==='easy').length}</div><div class="stat-label">Easy</div></div>
+    <div class="stat"><div class="stat-val">${list.filter(q=>q.diff==='medium').length}</div><div class="stat-label">Medium</div></div>
+    <div class="stat"><div class="stat-val">${list.filter(q=>q.diff==='hard').length}</div><div class="stat-label">Hard</div></div>
+  `;
+
+  if(!list.length) { document.getElementById('allList').innerHTML = '<div style="color:var(--dim);text-align:center;padding:2rem 0;">No questions match.</div>'; return; }
+
+  const diffs = ['easy','medium','hard'];
+  let html = '';
+  diffs.forEach(d => {
+    const sub = list.filter(q => q.diff === d);
+    if(!sub.length) return;
+    html += `<div style="font-size:11px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--dim);margin:1.5rem 0 8px;">${d.charAt(0).toUpperCase()+d.slice(1)}</div>`;
+    sub.forEach((q, i) => {
+      const gi = QUESTIONS.indexOf(q);
+      html += `<div class="qa-item">
+        <div class="qa-head" onclick="toggleQA(this)">
+          <div class="qa-num">${gi+1}</div>
+          <div style="flex:1">
+            <div class="qa-meta"><span class="badge b-${q.cat}">${catLabel(q.cat)}</span><span class="badge b-${q.diff}">${q.diff}</span></div>
+            <div class="qa-q">${q.q}</div>
+          </div>
+          <div class="qa-chevron">⌄</div>
+        </div>
+        <div class="qa-ans">${q.a}</div>
+      </div>`;
+    });
+  });
+  document.getElementById('allList').innerHTML = html;
+}
+
+// GD
+let selectedGD = null;
+function renderGD() {
+  const grid = document.getElementById('gdChips');
+  if(grid.innerHTML) return;
+  grid.innerHTML = GD_TOPICS.map((t,i) => `<div class="gd-chip" onclick="selectGD(${i},this)">${t.label}</div>`).join('');
+}
+
+function selectGD(i, el) {
+  document.querySelectorAll('.gd-chip').forEach(c => c.classList.remove('selected'));
+  el.classList.add('selected');
+  const t = GD_TOPICS[i];
+  document.getElementById('gdDetail').innerHTML = `<div class="card" style="border-left:3px solid #c084fc;border-radius:0 var(--radius) var(--radius) 0;">
+    <div class="card-title" style="color:#c084fc;">${t.label}</div>
+    <div class="card-body">${t.notes}</div>
+  </div>`;
+}
+</script>
+</body>
+</html>
